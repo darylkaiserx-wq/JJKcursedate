@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " F ",
+    " M ",
+    " S "
+  ],
+  "key": {
+    "F": {
+      "item": "jjkcursedate:curse_fragment"
+    },
+    "M": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "jjkcursedate:mechamaru_blade"
+  }
+}

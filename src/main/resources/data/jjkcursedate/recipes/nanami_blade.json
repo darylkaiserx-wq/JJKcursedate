@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " F ",
+    " M ",
+    " S "
+  ],
+  "key": {
+    "F": {
+      "item": "jjkcursedate:curse_fragment"
+    },
+    "M": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "jjkcursedate:nanami_blade"
+  }
+}

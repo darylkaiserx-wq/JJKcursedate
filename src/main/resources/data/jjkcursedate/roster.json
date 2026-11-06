@@ -1,0 +1,2246 @@
+[
+  {
+    "id": "gojo",
+    "name": "Satoru Gojo",
+    "role": "trainer",
+    "color": "84dbff",
+    "moves": [
+      {
+        "name": "Lapse Blue",
+        "kind": "pull",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Reversal Red",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Hollow Purple",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Unlimited Void"
+  },
+  {
+    "id": "yuji",
+    "name": "Yuji Itadori",
+    "role": "ally",
+    "color": "f48da6",
+    "moves": [
+      {
+        "name": "Divergent Fist",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Black Flash",
+        "kind": "rush",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Soul Strike",
+        "kind": "slash",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "sukuna",
+    "name": "Ryomen Sukuna",
+    "role": "boss",
+    "color": "e85164",
+    "moves": [
+      {
+        "name": "Dismantle",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Cleave",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Divine Flame",
+        "kind": "fire",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Malevolent Shrine"
+  },
+  {
+    "id": "megumi",
+    "name": "Megumi Fushiguro",
+    "role": "ally",
+    "color": "59699e",
+    "moves": [
+      {
+        "name": "Divine Dogs",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Nue",
+        "kind": "lightning",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Shadow Step",
+        "kind": "teleport",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Chimera Shadow Garden"
+  },
+  {
+    "id": "nobara",
+    "name": "Nobara Kugisaki",
+    "role": "ally",
+    "color": "e69b58",
+    "moves": [
+      {
+        "name": "Nail Shot",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Hairpin",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Resonance",
+        "kind": "curse",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "maki",
+    "name": "Maki Zenin",
+    "role": "ally",
+    "color": "729b65",
+    "moves": [
+      {
+        "name": "Heavenly Strike",
+        "kind": "strike",
+        "cost": 0,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Weapon Rush",
+        "kind": "rush",
+        "cost": 0,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Soul Split",
+        "kind": "slash",
+        "cost": 0,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "toge",
+    "name": "Toge Inumaki",
+    "role": "ally",
+    "color": "bca5d9",
+    "moves": [
+      {
+        "name": "Stop",
+        "kind": "stun",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Blast Away",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Sleep",
+        "kind": "curse",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "panda",
+    "name": "Panda",
+    "role": "ally",
+    "color": "bcbcbc",
+    "moves": [
+      {
+        "name": "Panda Punch",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Gorilla Core",
+        "kind": "rush",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Drumming Beat",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "nanami",
+    "name": "Kento Nanami",
+    "role": "trainer",
+    "color": "dcce85",
+    "moves": [
+      {
+        "name": "Ratio Strike",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Collapse",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Overtime",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "yuta",
+    "name": "Yuta Okkotsu",
+    "role": "ally",
+    "color": "d7e7ef",
+    "moves": [
+      {
+        "name": "Rika",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Cursed Speech",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Love Beam",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Authentic Mutual Love"
+  },
+  {
+    "id": "geto",
+    "name": "Suguru Geto",
+    "role": "boss",
+    "color": "9a7cbd",
+    "moves": [
+      {
+        "name": "Cursed Spirit",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Spirit Swarm",
+        "kind": "curse",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Maximum Uzumaki",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "mahito",
+    "name": "Mahito",
+    "role": "boss",
+    "color": "8dc6ce",
+    "moves": [
+      {
+        "name": "Soul Transfiguration",
+        "kind": "curse",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Body Repel",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Polymorphic Soul",
+        "kind": "summon",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Self Embodiment of Perfection"
+  },
+  {
+    "id": "jogo",
+    "name": "Jogo",
+    "role": "boss",
+    "color": "ff803f",
+    "moves": [
+      {
+        "name": "Ember Insects",
+        "kind": "fire",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Volcanic Burst",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Maximum Meteor",
+        "kind": "fire",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Coffin of the Iron Mountain"
+  },
+  {
+    "id": "hanami",
+    "name": "Hanami",
+    "role": "boss",
+    "color": "91be77",
+    "moves": [
+      {
+        "name": "Cursed Roots",
+        "kind": "plant",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Wooden Ball",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Flower Field",
+        "kind": "stun",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "dagon",
+    "name": "Dagon",
+    "role": "boss",
+    "color": "df7779",
+    "moves": [
+      {
+        "name": "Tidal Wave",
+        "kind": "water",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Death Swarm",
+        "kind": "summon",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Ocean Pressure",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Horizon of the Captivating Skandha"
+  },
+  {
+    "id": "toji",
+    "name": "Toji Fushiguro",
+    "role": "boss",
+    "color": "728392",
+    "moves": [
+      {
+        "name": "Inverted Spear",
+        "kind": "strike",
+        "cost": 0,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Heavenly Dash",
+        "kind": "rush",
+        "cost": 0,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Chain of a Thousand Miles",
+        "kind": "pull",
+        "cost": 0,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "choso",
+    "name": "Choso",
+    "role": "ally",
+    "color": "c15c7d",
+    "moves": [
+      {
+        "name": "Piercing Blood",
+        "kind": "blood",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Supernova",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Flowing Red Scale",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "todo",
+    "name": "Aoi Todo",
+    "role": "trainer",
+    "color": "bc985c",
+    "moves": [
+      {
+        "name": "Boogie Woogie",
+        "kind": "swap",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Heavy Clap",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Brotherly Rush",
+        "kind": "rush",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kamo",
+    "name": "Noritoshi Kamo",
+    "role": "ally",
+    "color": "b86574",
+    "moves": [
+      {
+        "name": "Blood Arrow",
+        "kind": "blood",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Crimson Binding",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Flowing Red Scale",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "momo",
+    "name": "Momo Nishimiya",
+    "role": "ally",
+    "color": "e3d899",
+    "moves": [
+      {
+        "name": "Wind Scythe",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Broom Flight",
+        "kind": "flight",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Wind Gust",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "mai",
+    "name": "Mai Zenin",
+    "role": "ally",
+    "color": "658b80",
+    "moves": [
+      {
+        "name": "Cursed Bullet",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Construction",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Last Bullet",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "miwa",
+    "name": "Kasumi Miwa",
+    "role": "ally",
+    "color": "91b6e8",
+    "moves": [
+      {
+        "name": "Batto Sword Drawing",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "New Shadow Style",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Simple Domain",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "mechamaru",
+    "name": "Kokichi Muta",
+    "role": "ally",
+    "color": "bda082",
+    "moves": [
+      {
+        "name": "Ultra Cannon",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Puppet Volley",
+        "kind": "slash",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Absolute Mode",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "utahime",
+    "name": "Utahime Iori",
+    "role": "trainer",
+    "color": "db99ae",
+    "moves": [
+      {
+        "name": "Solo Forbidden Area",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Ritual Pulse",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Support Chant",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "shoko",
+    "name": "Shoko Ieiri",
+    "role": "trainer",
+    "color": "b38d77",
+    "moves": [
+      {
+        "name": "Reverse Healing",
+        "kind": "heal",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Medical Reinforcement",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Cursed Pulse",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "gakuganji",
+    "name": "Yoshinobu Gakuganji",
+    "role": "trainer",
+    "color": "b1a287",
+    "moves": [
+      {
+        "name": "Guitar Wave",
+        "kind": "push",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Amplified Chord",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Resonant Burst",
+        "kind": "stun",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kusakabe",
+    "name": "Atsuya Kusakabe",
+    "role": "trainer",
+    "color": "9a9279",
+    "moves": [
+      {
+        "name": "Evening Moon",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Simple Domain",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Sword Interception",
+        "kind": "strike",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "mei_mei",
+    "name": "Mei Mei",
+    "role": "trainer",
+    "color": "b3bfd9",
+    "moves": [
+      {
+        "name": "Bird Strike",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Black Bird",
+        "kind": "summon",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Battle Axe",
+        "kind": "strike",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "ui_ui",
+    "name": "Ui Ui",
+    "role": "ally",
+    "color": "a0c8e3",
+    "moves": [
+      {
+        "name": "Spatial Transfer",
+        "kind": "teleport",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Simple Domain",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Evacuation",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "naobito",
+    "name": "Naobito Zenin",
+    "role": "trainer",
+    "color": "b78c72",
+    "moves": [
+      {
+        "name": "Projection Rush",
+        "kind": "rush",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Frame Lock",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Twenty Four Frames",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "naoya",
+    "name": "Naoya Zenin",
+    "role": "boss",
+    "color": "bfbd91",
+    "moves": [
+      {
+        "name": "Projection Dash",
+        "kind": "rush",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Frame Freeze",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Mach Strike",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Time Cell Moon Palace"
+  },
+  {
+    "id": "yuki",
+    "name": "Yuki Tsukumo",
+    "role": "ally",
+    "color": "e2c866",
+    "moves": [
+      {
+        "name": "Star Rage",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Garuda",
+        "kind": "summon",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Mass Impact",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "tengen",
+    "name": "Master Tengen",
+    "role": "trainer",
+    "color": "c8bd9b",
+    "moves": [
+      {
+        "name": "Barrier Art",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Spatial Barrier",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Pure Barrier",
+        "kind": "stun",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kenjaku",
+    "name": "Kenjaku",
+    "role": "boss",
+    "color": "af88be",
+    "moves": [
+      {
+        "name": "Spirit Manipulation",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Antigravity",
+        "kind": "gravity",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Uzumaki",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Womb Profusion"
+  },
+  {
+    "id": "uraume",
+    "name": "Uraume",
+    "role": "boss",
+    "color": "9cdeed",
+    "moves": [
+      {
+        "name": "Ice Formation",
+        "kind": "ice",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Frost Calm",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Icefall",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "haruta",
+    "name": "Haruta Shigemo",
+    "role": "boss",
+    "color": "dcc969",
+    "moves": [
+      {
+        "name": "Hand Sword",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Miracle",
+        "kind": "heal",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Lucky Strike",
+        "kind": "strike",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "eso",
+    "name": "Eso",
+    "role": "boss",
+    "color": "d68bba",
+    "moves": [
+      {
+        "name": "Wing King",
+        "kind": "poison",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Decay",
+        "kind": "curse",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Blood Spray",
+        "kind": "blood",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kechizu",
+    "name": "Kechizu",
+    "role": "boss",
+    "color": "8eae87",
+    "moves": [
+      {
+        "name": "Rot Blood",
+        "kind": "poison",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Cursed Bite",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Decay Mist",
+        "kind": "curse",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "finger_bearer",
+    "name": "Finger Bearer",
+    "role": "boss",
+    "color": "d8c4a2",
+    "moves": [
+      {
+        "name": "Cursed Volley",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Brutal Claw",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Energy Burst",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "smallpox",
+    "name": "Smallpox Deity",
+    "role": "boss",
+    "color": "959f70",
+    "moves": [
+      {
+        "name": "Grave Binding",
+        "kind": "stun",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Disease",
+        "kind": "poison",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Burial",
+        "kind": "gravity",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Smallpox Graveyard"
+  },
+  {
+    "id": "grasshopper",
+    "name": "Grasshopper Curse",
+    "role": "enemy",
+    "color": "8ead63",
+    "moves": [
+      {
+        "name": "Leaping Kick",
+        "kind": "rush",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Mandible",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Wing Gust",
+        "kind": "push",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "rika",
+    "name": "Rika Orimoto",
+    "role": "ally",
+    "color": "d4badf",
+    "moves": [
+      {
+        "name": "Queen Claw",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Love Blast",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Protective Rage",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "higuruma",
+    "name": "Hiromi Higuruma",
+    "role": "ally",
+    "color": "a39c8b",
+    "moves": [
+      {
+        "name": "Gavel",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Confiscation",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Executioners Sword",
+        "kind": "slash",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Deadly Sentencing"
+  },
+  {
+    "id": "hakari",
+    "name": "Kinji Hakari",
+    "role": "ally",
+    "color": "b6c37a",
+    "moves": [
+      {
+        "name": "Reserve Ball",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Shutter Doors",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Jackpot Rush",
+        "kind": "rush",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Idle Death Gamble"
+  },
+  {
+    "id": "kirara",
+    "name": "Kirara Hoshi",
+    "role": "ally",
+    "color": "c8a1dd",
+    "moves": [
+      {
+        "name": "Love Rendezvous",
+        "kind": "pull",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Star Repulsion",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Southern Cross",
+        "kind": "stun",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kashimo",
+    "name": "Hajime Kashimo",
+    "role": "boss",
+    "color": "98dfd4",
+    "moves": [
+      {
+        "name": "Lightning Discharge",
+        "kind": "lightning",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Staff Strike",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Mythical Beast Amber",
+        "kind": "rush",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "hara",
+    "name": "Reggie Star",
+    "role": "boss",
+    "color": "dbbf8c",
+    "moves": [
+      {
+        "name": "Contractual Recreation",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Receipt Shield",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Recreated Weight",
+        "kind": "gravity",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "takaba",
+    "name": "Fumihiko Takaba",
+    "role": "ally",
+    "color": "f1db65",
+    "moves": [
+      {
+        "name": "Comedian",
+        "kind": "heal",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Slapstick",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Punchline",
+        "kind": "stun",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "hanezoki",
+    "name": "Iori Hazenoki",
+    "role": "boss",
+    "color": "d5a28d",
+    "moves": [
+      {
+        "name": "Explosive Tooth",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Explosive Eye",
+        "kind": "fire",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Reverse Recovery",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "ryu",
+    "name": "Ryu Ishigori",
+    "role": "boss",
+    "color": "b78cd0",
+    "moves": [
+      {
+        "name": "Granite Blast",
+        "kind": "blast",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Maximum Output",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Cursed Barrage",
+        "kind": "slash",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "uro",
+    "name": "Takako Uro",
+    "role": "boss",
+    "color": "a8d7e9",
+    "moves": [
+      {
+        "name": "Sky Manipulation",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Thin Ice Breaker",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Sky Fold",
+        "kind": "swap",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kurourushi",
+    "name": "Kurourushi",
+    "role": "boss",
+    "color": "a19765",
+    "moves": [
+      {
+        "name": "Festering Blade",
+        "kind": "poison",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Cockroach Swarm",
+        "kind": "summon",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Life Drain",
+        "kind": "curse",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "dhruv",
+    "name": "Dhruv Lakdawalla",
+    "role": "boss",
+    "color": "c8a786",
+    "moves": [
+      {
+        "name": "Shikigami Orbit",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Territory Slash",
+        "kind": "slash",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Orbital Barrier",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "angel",
+    "name": "Hana Kurusu",
+    "role": "ally",
+    "color": "e9dba0",
+    "moves": [
+      {
+        "name": "Technique Extinguishment",
+        "kind": "stun",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Jacobs Ladder",
+        "kind": "blast",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Angelic Flight",
+        "kind": "flight",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "yorozu",
+    "name": "Yorozu",
+    "role": "boss",
+    "color": "9bb9a8",
+    "moves": [
+      {
+        "name": "Liquid Metal",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Insect Armor",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Perfect Sphere",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Threefold Affliction"
+  },
+  {
+    "id": "daido",
+    "name": "Hagane Daido",
+    "role": "ally",
+    "color": "c4bdac",
+    "moves": [
+      {
+        "name": "Katana Mastery",
+        "kind": "slash",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Perception",
+        "kind": "strike",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Cut Everything",
+        "kind": "blast",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "miyo",
+    "name": "Rokujushi Miyo",
+    "role": "ally",
+    "color": "b7a184",
+    "moves": [
+      {
+        "name": "Sumo Charge",
+        "kind": "rush",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Ring Toss",
+        "kind": "push",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Sumo Training",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": "Sumo Ring"
+  },
+  {
+    "id": "larue",
+    "name": "Larue",
+    "role": "ally",
+    "color": "c4a0a7",
+    "moves": [
+      {
+        "name": "Heart Catch",
+        "kind": "pull",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Attention Grab",
+        "kind": "stun",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Heart Grip",
+        "kind": "strike",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "miguel",
+    "name": "Miguel",
+    "role": "ally",
+    "color": "c99562",
+    "moves": [
+      {
+        "name": "Black Rope",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Prayer Song",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Rhythm Step",
+        "kind": "rush",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "junpei",
+    "name": "Junpei Yoshino",
+    "role": "ally",
+    "color": "9dbbc4",
+    "moves": [
+      {
+        "name": "Moon Dregs",
+        "kind": "summon",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Jellyfish Venom",
+        "kind": "poison",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Poison Guard",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "ijichi",
+    "name": "Kiyotaka Ijichi",
+    "role": "civilian",
+    "color": "a5b0bb",
+    "moves": [
+      {
+        "name": "Curtain",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "nitta",
+    "name": "Akari Nitta",
+    "role": "civilian",
+    "color": "e8bc9f",
+    "moves": [
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Support",
+        "kind": "shield",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "arata",
+    "name": "Arata Nitta",
+    "role": "civilian",
+    "color": "dbc399",
+    "moves": [
+      {
+        "name": "Painkiller",
+        "kind": "heal",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Stabilize",
+        "kind": "shield",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "riko",
+    "name": "Riko Amanai",
+    "role": "civilian",
+    "color": "80c9e2",
+    "moves": [
+      {
+        "name": "Encouragement",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "kuro",
+    "name": "Misato Kuroi",
+    "role": "civilian",
+    "color": "b19ca1",
+    "moves": [
+      {
+        "name": "Guard",
+        "kind": "strike",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "tsumiki",
+    "name": "Tsumiki Fushiguro",
+    "role": "civilian",
+    "color": "d8b9ac",
+    "moves": [
+      {
+        "name": "Encouragement",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "wasuke",
+    "name": "Wasuke Itadori",
+    "role": "civilian",
+    "color": "b3b3ac",
+    "moves": [
+      {
+        "name": "Resolve",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "Encouragement",
+        "kind": "heal",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  },
+  {
+    "id": "yuko",
+    "name": "Yuko Ozawa",
+    "role": "civilian",
+    "color": "bfa2b2",
+    "moves": [
+      {
+        "name": "Encouragement",
+        "kind": "shield",
+        "cost": 14,
+        "cooldown": 35,
+        "level": 1,
+        "power": 6
+      },
+      {
+        "name": "First Aid",
+        "kind": "heal",
+        "cost": 26,
+        "cooldown": 90,
+        "level": 8,
+        "power": 10
+      },
+      {
+        "name": "Retreat",
+        "kind": "teleport",
+        "cost": 44,
+        "cooldown": 180,
+        "level": 18,
+        "power": 17
+      }
+    ],
+    "domain": ""
+  }
+]

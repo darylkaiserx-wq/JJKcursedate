@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " F ",
+    " M ",
+    " S "
+  ],
+  "key": {
+    "F": {
+      "item": "jjkcursedate:curse_fragment"
+    },
+    "M": {
+      "item": "minecraft:chain"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "jjkcursedate:chain_of_a_thousand_miles"
+  }
+}

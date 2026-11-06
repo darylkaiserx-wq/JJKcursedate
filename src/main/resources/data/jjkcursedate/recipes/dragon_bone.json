@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " F ",
+    " M ",
+    " S "
+  ],
+  "key": {
+    "F": {
+      "item": "jjkcursedate:curse_fragment"
+    },
+    "M": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "jjkcursedate:dragon_bone"
+  }
+}
