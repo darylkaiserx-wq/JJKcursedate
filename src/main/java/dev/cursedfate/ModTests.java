@@ -40,7 +40,7 @@ public final class ModTests {
         h.runAfterDelay(20,()->{
             h.assertBlockPresent(net.minecraft.world.level.block.Blocks.GRAY_CONCRETE,1,1,1);
             h.assertBlockPresent(net.minecraft.world.level.block.Blocks.LADDER,3,3,3);
-            h.assertBlockPresent(net.minecraft.world.level.block.Blocks.WHITE_CONCRETE,2,3,3);
+            h.assertBlockPresent(CursedFate.MATERIALS.get("plaster").get(),2,3,3);
             h.assertBlockPresent(net.minecraft.world.level.block.Blocks.LADDER,3,11,3);
             h.succeed();
         });
@@ -87,5 +87,42 @@ public final class ModTests {
         var p=h.makeMockSurvivalPlayer();var ally=CursedFate.NPCS.get("nobara").get().create(h.getLevel());var boss=CursedFate.NPCS.get("mahito").get().create(h.getLevel());
         h.assertTrue(!Actions.enemy(p,ally),"Friendly NPCs protected");h.assertTrue(Actions.enemy(p,boss),"Antagonists targetable");
         var other=h.makeMockSurvivalPlayer();h.assertTrue(!Actions.enemy(p,other),"PVP disabled by default");h.succeed();
+    }
+
+    @GameTest(template="empty") public static void selectedTechniqueAndEggs(GameTestHelper h){
+        var p=mockServerPlayer(h);var d=Progress.data(p);d.putString("path","gojo");d.putFloat("energy",100);
+        for(int expected:new int[]{1,2,0}){d.remove("requestAfter");Actions.request(p,"cycle",0);h.assertTrue(d.getInt("selectedTechnique")==expected,"Z cycles all three slots and wraps");}
+        d.putInt("selectedTechnique",2);d.remove("requestAfter");Actions.request(p,"castSelected",0);
+        h.assertTrue(!d.contains("cooldown2")&&d.getFloat("energy")==100,"X cannot bypass selected move unlock");
+        d.putInt("selectedTechnique",0);d.remove("requestAfter");Actions.request(p,"castSelected",99);
+        h.assertTrue(d.contains("cooldown0")&&d.getFloat("energy")<100,"X casts server selection, ignores client slot");
+        h.assertTrue(CursedFate.ITEMS.getEntries().stream().filter(e->e.get().asItem() instanceof net.minecraft.world.item.SpawnEggItem).count()==76,"68 character and 8 summon eggs");
+        h.assertTrue(CursedFate.MATERIALS.size()==5,"Five architecture materials registered");
+        var egg=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(CursedFate.id("divine_dog_spawn_egg"));
+        var exhibit=((net.minecraft.world.item.SpawnEggItem)egg).getType(new ItemStack(egg).getTag()).spawn(h.getLevel(),new ItemStack(egg),null,h.absolutePos(new BlockPos(2,2,2)),net.minecraft.world.entity.MobSpawnType.SPAWN_EGG,false,false);
+        h.assertTrue(exhibit instanceof Shikigami,"Creative egg creates summon model");((Shikigami)exhibit).aiStep();h.assertTrue(!exhibit.isRemoved(),"Egg spawn survives without temporary owner");exhibit.discard();h.succeed();
+    }
+    private static net.minecraft.world.entity.animal.Pig punchTarget(GameTestHelper h,net.minecraft.server.level.ServerPlayer p){
+        p.moveTo(h.absolutePos(new BlockPos(2,2,1)),0,0);
+        var target=h.spawn(EntityType.PIG,2,2,3);target.setNoAi(true);target.setNoGravity(true);
+        target.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).setBaseValue(100);
+        target.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);target.setHealth(100);
+        // Aim at the pig's lower eye position.
+        p.setXRot(22);return target;
+    }
+    @GameTest(template="empty",timeoutTicks=60) public static void boundedBarrage(GameTestHelper h){
+        var p=mockServerPlayer(h);var d=Progress.data(p);d.putString("path","yuji");d.putFloat("energy",100);var target=punchTarget(h,p);
+        h.assertTrue(Combat.punch(p,"barrage"),"Barrage accepted");h.assertTrue(d.getFloat("energy")==84,"Pay once for combo");
+        h.assertTrue(!Combat.punch(p,"quick"),"Cannot spam during combo");h.onEachTick(()->Combat.tick(p));
+        h.runAfterDelay(27,()->{h.assertTrue(Math.abs(target.getHealth()-85)<.01,"All six 2.5 damage hits land");h.assertTrue(d.getInt("barrageLeft")==0,"Barrage ends after six hits");});
+        h.runAfterDelay(35,()->{h.assertTrue(Math.abs(target.getHealth()-85)<.01,"No extra hits after combo");target.discard();h.succeed();});
+    }
+    @GameTest(template="empty",timeoutTicks=60) public static void heavyWindupAndCancellation(GameTestHelper h){
+        var p=mockServerPlayer(h);var d=Progress.data(p);d.putString("path","yuji");d.putFloat("energy",7);
+        h.assertTrue(!Combat.punch(p,"heavy"),"Heavy requires energy");d.putFloat("energy",100);var target=punchTarget(h,p);
+        h.assertTrue(Combat.punch(p,"heavy"),"Heavy queued");h.assertTrue(target.getHealth()==100,"Windup deals no early damage");
+        h.onEachTick(()->Combat.tick(p));h.runAfterDelay(9,()->{h.assertTrue(target.getHealth()==89,"Heavy lands after windup");});
+        h.runAfterDelay(25,()->{Combat.punch(p,"barrage");Combat.cancel(p);});
+        h.runAfterDelay(52,()->{h.assertTrue(d.getInt("barrageLeft")==0&&!d.contains("heavyAt"),"Cancellation clears delayed attacks");h.assertTrue(target.getHealth()==89,"Cancelled combo deals no damage");target.discard();h.succeed();});
     }
 }

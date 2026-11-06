@@ -1,1 +1,68 @@
-{"impact":{"sounds":["jjkcursedate:impact"],"subtitle":"subtitles.jjkcursedate.impact"},"domain":{"sounds":["jjkcursedate:domain"],"subtitle":"subtitles.jjkcursedate.domain"}}
+{
+  "impact": {
+    "sounds": [
+      "jjkcursedate:impact"
+    ],
+    "subtitle": "subtitles.jjkcursedate.impact"
+  },
+  "domain": {
+    "sounds": [
+      "jjkcursedate:domain"
+    ],
+    "subtitle": "subtitles.jjkcursedate.domain"
+  },
+  "quick": {
+    "sounds": [
+      "jjkcursedate:quick"
+    ],
+    "subtitle": "subtitles.jjkcursedate.quick"
+  },
+  "heavy": {
+    "sounds": [
+      "jjkcursedate:heavy"
+    ],
+    "subtitle": "subtitles.jjkcursedate.heavy"
+  },
+  "barrage": {
+    "sounds": [
+      "jjkcursedate:barrage"
+    ],
+    "subtitle": "subtitles.jjkcursedate.barrage"
+  },
+  "charge": {
+    "sounds": [
+      "jjkcursedate:charge"
+    ],
+    "subtitle": "subtitles.jjkcursedate.charge"
+  },
+  "black_flash": {
+    "sounds": [
+      "jjkcursedate:black_flash"
+    ],
+    "subtitle": "subtitles.jjkcursedate.black_flash"
+  },
+  "slash": {
+    "sounds": [
+      "jjkcursedate:slash"
+    ],
+    "subtitle": "subtitles.jjkcursedate.slash"
+  },
+  "fire": {
+    "sounds": [
+      "jjkcursedate:fire"
+    ],
+    "subtitle": "subtitles.jjkcursedate.fire"
+  },
+  "lightning": {
+    "sounds": [
+      "jjkcursedate:lightning"
+    ],
+    "subtitle": "subtitles.jjkcursedate.lightning"
+  },
+  "blood": {
+    "sounds": [
+      "jjkcursedate:blood"
+    ],
+    "subtitle": "subtitles.jjkcursedate.blood"
+  }
+}

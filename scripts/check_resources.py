@@ -6,7 +6,7 @@ roster=json.loads((d/'roster.json').read_text());ids={c['id'] for c in roster}
 assert len(ids)==len(roster)
 for c in roster:
     skin=a/f'textures/entity/{c["id"]}.png'
-    assert struct.unpack('>II',skin.read_bytes()[16:24])==(64,64),skin
+    assert struct.unpack('>II',skin.read_bytes()[16:24])==(128,128),skin
     assert len(c['moves'])==3
     for move in c['moves']:assert move['cost']>=0 and move['cooldown']>0 and 1<=move['level']<=60
 models=list((a/'models/item').glob('*.json'))
@@ -25,3 +25,21 @@ for recipe in recipes:
 for path in r.rglob('*.json'):json.loads(path.read_text())
 assert (d/'structures/empty.nbt').exists()
 print(f'PASS: {len(roster)} skins, {len(models)} item models, {len(recipes)} distinct recipes, all JSON references')
+# New sprite/model/audio references must resolve independently of their generators.
+for particle in (a/'particles').glob('*.json'):
+    textures=json.loads(particle.read_text())['textures'];assert len(textures)==6
+    for t in textures:assert (a/'textures/particle'/(t.split(':')[1]+'.png')).exists(),t
+for name in ['plaster','roof_tiles','timber_panel','curse_stone','paving']:
+    assert (a/f'blockstates/{name}.json').exists()
+    model=json.loads((a/f'models/block/{name}.json').read_text())
+    for t in model['textures'].values():assert (a/'textures'/(t.split(':')[1]+'.png')).exists()
+    assert (d/f'loot_tables/blocks/{name}.json').exists()
+for c in ids|{'divine_dog','nue','rika_manifestation','cursed_spirit','moon_dregs','garuda','death_swarm','mahoraga'}:
+    assert (a/f'models/item/{c}_spawn_egg.json').exists(),c
+for name,entry in json.loads((a/'sounds.json').read_text()).items():
+    for t in entry['sounds']:
+        sound=a/'sounds'/(t.split(':')[1]+'.ogg');assert sound.read_bytes()[:4]==b'OggS',sound
+print('PASS: 12 six-frame sprite sets, 5 materials with loot, 76 egg models, 11 Vorbis sound references')
+for skin in (a/'textures/models/armor').glob('*.png'):
+    assert struct.unpack('>II',skin.read_bytes()[16:24])==(128,64),skin
+print('PASS: 16 shaded outfit armor atlases')

@@ -27,18 +27,29 @@ import java.util.*;
 public final class Client {
     public static CompoundTag state=new CompoundTag();
     public static final Map<java.util.UUID,String> styles=new HashMap<>();
-    private static PlayerRenderer styledPlayer;
+    private static final Map<String,PlayerRenderer> PLAYER_MODELS=new HashMap<>();
+    private static PlayerRenderer renderer(net.minecraft.world.entity.player.Player p){return PLAYER_MODELS.get(style(p));}
     private static boolean renderingStyle;
     private static String style(net.minecraft.world.entity.player.Player player){return player==Minecraft.getInstance().player?state.getString("path"):styles.getOrDefault(player.getUUID(),"");}
     @SubscribeEvent public static void playerLayer(EntityRenderersEvent.AddLayers event){
-        styledPlayer=new PlayerRenderer(event.getContext(),false){
-            @Override public ResourceLocation getTextureLocation(net.minecraft.client.player.AbstractClientPlayer player){var c=Catalog.get(style(player));return c==null?super.getTextureLocation(player):CursedFate.id("textures/entity/"+c.id()+".png");}
-        };
+        PLAYER_MODELS.clear();
+        for(var character:Catalog.ALL){String path=character.id();
+            PLAYER_MODELS.put(path,new PlayerRenderer(event.getContext(),false){
+                private final PlayerModel<net.minecraft.client.player.AbstractClientPlayer> characterModel=new PlayerModel<>(event.getEntityModels().bakeLayer(layer(path)),false){
+                    @Override public void setupAnim(net.minecraft.client.player.AbstractClientPlayer e,float walk,float amount,float age,float yaw,float pitch){super.setupAnim(e,walk,amount,age,yaw,pitch);CombatVisuals.pose(this,e,age-e.tickCount);}
+                };
+                { this.model=characterModel; }
+                @Override public PlayerModel<net.minecraft.client.player.AbstractClientPlayer> getModel(){return characterModel==null?super.getModel():characterModel;}
+                @Override public ResourceLocation getTextureLocation(net.minecraft.client.player.AbstractClientPlayer player){return CursedFate.id("textures/entity/"+path+".png");}
+            });
+        }
     }
+    @SubscribeEvent public static void particles(RegisterParticleProvidersEvent e){Effects.SPRITES.forEach((name,type)->e.registerSpriteSet(type.get(),sprites->SpriteEffect.provider(sprites,name)));}
+
     private static final Map<String,KeyMapping> KEYS=new LinkedHashMap<>();
     @SubscribeEvent public static void keys(RegisterKeyMappingsEvent e){
-        String[] actions={"cast1","cast2","cast3","domain","rct","guard","reinforce","journal"};
-        int[] keys={GLFW.GLFW_KEY_Z,GLFW.GLFW_KEY_X,GLFW.GLFW_KEY_C,GLFW.GLFW_KEY_R,GLFW.GLFW_KEY_V,GLFW.GLFW_KEY_G,GLFW.GLFW_KEY_B,GLFW.GLFW_KEY_K};
+        String[] actions={"cycle","castSelected","quick","heavy","barrage","domain","rct","guard","reinforce","journal"};
+        int[] keys={GLFW.GLFW_KEY_Z,GLFW.GLFW_KEY_X,GLFW.GLFW_KEY_C,GLFW.GLFW_KEY_H,GLFW.GLFW_KEY_J,GLFW.GLFW_KEY_R,GLFW.GLFW_KEY_V,GLFW.GLFW_KEY_G,GLFW.GLFW_KEY_B,GLFW.GLFW_KEY_K};
         for(int i=0;i<actions.length;i++){var k=new KeyMapping("key.jjkcursedate."+actions[i],InputConstants.Type.KEYSYM,keys[i],"key.categories.jjkcursedate");KEYS.put(actions[i],k);e.register(k);}
     }
     private static net.minecraft.client.model.geom.ModelLayerLocation layer(String id){return new net.minecraft.client.model.geom.ModelLayerLocation(CursedFate.id(id),"main");}
@@ -53,6 +64,8 @@ public final class Client {
                 case "hanami" -> cubes.texOffs(0,0).addBox(-6,-10,-1,2,6,2).addBox(4,-10,-1,2,6,2);
                 case "dagon" -> cubes.texOffs(0,0).addBox(-5,-9,-5,10,9,10).addBox(-3,-1,-6,2,5,2).addBox(1,-1,-6,2,5,2);
                 case "panda" -> cubes.texOffs(0,0).addBox(-5,-10,-2,3,3,3).addBox(2,-10,-2,3,3,3);
+                case "maki","choso","kamo","momo" -> cubes.texOffs(16,0).addBox(-2,-7,3,4,9,3);
+                case "geto","kenjaku","mahito","miwa","yuki","mei_mei","utahime","riko","tsumiki","kuro","yorozu","uro" -> cubes.texOffs(16,0).addBox(-4,-6,3,8,10,2);
                 case "gojo","yuji","megumi","sukuna","kashimo" -> cubes.texOffs(0,0).addBox(-4,-10,-3,2,3,6).addBox(-1,-11,-3,2,4,6).addBox(2,-10,-3,2,3,6);
                 default -> cubes.texOffs(0,0).addBox(-4,-8,-4,8,1,8,new net.minecraft.client.model.geom.builders.CubeDeformation(.15f));
             }
@@ -73,7 +86,7 @@ public final class Client {
                     super.setupAnim(e,walk,amount,age,yaw,pitch);
                     if(e.casting()){rightArm.xRot=-1.5f;leftArm.xRot=-1.5f;rightArm.yRot=-.3f;leftArm.yRot=.3f;}
                     if(e.getHealth()<e.getMaxHealth()*.25){body.xRot=.08f;head.xRot+=.12f;}
-                    jacket.copyFrom(body);rightSleeve.copyFrom(rightArm);leftSleeve.copyFrom(leftArm);
+                    CombatVisuals.pose(this,e,age-e.tickCount);jacket.copyFrom(body);rightSleeve.copyFrom(rightArm);leftSleeve.copyFrom(leftArm);
                 }
             },.5f){@Override public ResourceLocation getTextureLocation(Sorcerer e){return CursedFate.id("textures/entity/"+path+".png");}});
         }
@@ -86,14 +99,15 @@ public final class Client {
     @Mod.EventBusSubscriber(modid=CursedFate.ID,value=Dist.CLIENT)
     public static class Runtime {
         @SubscribeEvent public static void player(net.minecraftforge.client.event.RenderPlayerEvent.Pre event){
-            if(renderingStyle||styledPlayer==null||Catalog.get(style(event.getEntity()))==null)return;
+            var styledPlayer=renderer(event.getEntity());
+            if(renderingStyle||styledPlayer==null)return;
             event.setCanceled(true);renderingStyle=true;
             try{styledPlayer.render((net.minecraft.client.player.AbstractClientPlayer)event.getEntity(),event.getEntity().getYRot(),event.getPartialTick(),event.getPoseStack(),event.getMultiBufferSource(),event.getPackedLight());}finally{renderingStyle=false;}
         }
         @SubscribeEvent public static void arm(net.minecraftforge.client.event.RenderArmEvent event){
-            if(styledPlayer==null||Catalog.get(style(event.getPlayer()))==null)return;event.setCanceled(true);
+            var styledPlayer=renderer(event.getPlayer());if(styledPlayer==null)return;event.setCanceled(true);
             var model=styledPlayer.getModel();model.attackTime=0;model.crouching=false;model.swimAmount=0;
-            model.setupAnim(event.getPlayer(),0,0,0,0,0);
+            model.setupAnim(event.getPlayer(),0,0,event.getPlayer().tickCount,0,0);
             var c=Catalog.get(style(event.getPlayer()));
             var buffer=event.getMultiBufferSource().getBuffer(net.minecraft.client.renderer.RenderType.entityCutoutNoCull(CursedFate.id("textures/entity/"+c.id()+".png")));
             var arm=event.getArm()==net.minecraft.world.entity.HumanoidArm.RIGHT?model.rightArm:model.leftArm;
@@ -103,25 +117,53 @@ public final class Client {
             sleeve.render(event.getPoseStack(),buffer,event.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);
         }
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
-            if(e.phase!=TickEvent.Phase.END||Minecraft.getInstance().player==null)return;
+            if(e.phase!=TickEvent.Phase.END)return;CombatVisuals.tick();if(Minecraft.getInstance().player==null)return;
             for(var entry:KEYS.entrySet())while(entry.getValue().consumeClick()){
-                String action=entry.getKey();if(action.startsWith("cast"))Net.send("cast",Integer.parseInt(action.substring(4))-1);else Net.send(action,0);
+                if(Minecraft.getInstance().screen==null)Net.send(entry.getKey(),0);
             }
         }
         @SubscribeEvent public static void hud(RenderGuiOverlayEvent.Post e){
             var mc=Minecraft.getInstance();if(e.getOverlay()!=VanillaGuiOverlay.HOTBAR.type()||mc.player==null||mc.options.hideGui)return;
             var c=Catalog.get(state.getString("path"));if(c==null)return;var g=e.getGuiGraphics();int x=12,y=mc.getWindow().getGuiScaledHeight()-80;
-            g.fill(x-4,y-5,x+190,y+44,0xb00d101c);g.drawString(mc.font,c.name()+" • "+Progress.rank(state.getInt("rank")),x,y,0xe3d29d);
+            g.fill(x-4,y-5,x+240,y+60,0xb00d101c);g.drawString(mc.font,c.name()+" • "+Progress.rank(state.getInt("rank")),x,y,0xe3d29d);
             g.fill(x,y+14,x+180,y+21,0xff303342);int actualMax=state.getInt("maxEnergy");int max=Math.max(1,actualMax);
             g.fill(x,y+14,x+(int)(180*Math.max(0,Math.min(1,state.getFloat("energy")/max))),y+21,0xff69bce9);
             g.drawString(mc.font,(actualMax==0?"Heavenly Restriction":"CE "+(int)state.getFloat("energy")+" / "+max)+"    Lv. "+state.getInt("level"),x,y+26,0xffd5e8f5);
+            int selected=Math.floorMod(state.getInt("selectedTechnique"),3);var move=c.moves().get(selected);
+            long remaining=Math.max(0,state.getLong("cooldown"+selected)-mc.player.level().getGameTime());
+            g.drawString(mc.font,"Z > "+move.name()+"   X: "+(state.getInt("level")<move.level()?"Lv "+move.level():remaining>0?(remaining+19)/20+"s":"Ready"),x,y+42,0xffdab9ff);
+        }
+        @SubscribeEvent public static void camera(ViewportEvent.ComputeCameraAngles e){
+            var p=Minecraft.getInstance().player;if(p==null||!Minecraft.getInstance().options.getCameraType().isFirstPerson()||!Settings.CAMERA_MOTION.get())return;
+            var clip=CombatVisuals.current(p);if(clip==null)return;
+            float t=CombatVisuals.phase(p,(float)e.getPartialTick());float f=CombatVisuals.envelope(t);
+            e.setPitch(e.getPitch()-f*(clip.name().equals("heavy")?1.8f:.6f));
+            e.setRoll(e.getRoll()+(float)Math.sin(t*Math.PI*2)*f*(clip.name().equals("barrage")?1.1f:.4f));
         }
         @SubscribeEvent public static void hand(RenderHandEvent e){
-            var mc=Minecraft.getInstance();if(mc.player==null)return;
-            long since=mc.player.level().getGameTime()-state.getLong("lastCast");
-            if(state.contains("lastCast")&&since>=0&&since<12){float p=(float)Math.sin((since+e.getPartialTick())/12*Math.PI);e.getPoseStack().translate(0,p*.12,-p*.16);e.getPoseStack().mulPose(Axis.XP.rotationDegrees(-p*18));}
+            var p=Minecraft.getInstance().player;if(p==null)return;var clip=CombatVisuals.current(p);if(clip==null)return;
+            float t=CombatVisuals.phase(p,e.getPartialTick()),f=CombatVisuals.envelope(t);
+            if((clip.name().equals("barrage")||clip.name().equals("cast"))&&p.getMainHandItem().isEmpty()&&p.getOffhandItem().isEmpty()&&renderer(p)!=null){
+                e.setCanceled(true);if(e.getHand()!=net.minecraft.world.InteractionHand.MAIN_HAND)return;
+                float wave=(float)Math.sin(t*Math.PI*12);
+                drawCombatArm(e,net.minecraft.world.entity.HumanoidArm.RIGHT,clip.name().equals("barrage")?(wave+1)*.5f:f);
+                drawCombatArm(e,net.minecraft.world.entity.HumanoidArm.LEFT,clip.name().equals("barrage")?(1-wave)*.5f:f*.85f);return;
+            }
+            float alternating=clip.name().equals("barrage")?(float)Math.sin(t*Math.PI*12):0;
+            e.getPoseStack().translate(alternating*.13,f*.05,-f*(clip.name().equals("heavy")?.4:.22));
+            e.getPoseStack().mulPose(Axis.XP.rotationDegrees(-f*22));e.getPoseStack().mulPose(Axis.YP.rotationDegrees(alternating*12));
         }
-        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();}
+        private static void drawCombatArm(RenderHandEvent e,net.minecraft.world.entity.HumanoidArm side,float thrust){
+            var p=Minecraft.getInstance().player;var model=renderer(p).getModel();var pose=e.getPoseStack();float sign=side==net.minecraft.world.entity.HumanoidArm.RIGHT?1:-1;
+            var arm=sign==1?model.rightArm:model.leftArm;var sleeve=sign==1?model.rightSleeve:model.leftSleeve;
+            model.setupAnim(p,0,0,p.tickCount+e.getPartialTick(),0,0);arm.xRot=0;arm.yRot=0;arm.zRot=0;sleeve.copyFrom(arm);
+            var buffer=e.getMultiBufferSource().getBuffer(net.minecraft.client.renderer.RenderType.entityCutoutNoCull(CursedFate.id("textures/entity/"+style(p)+".png")));
+            pose.pushPose();
+            pose.translate(sign*(.57-thrust*.14),-.62+thrust*.15,-.72-thrust*.32);pose.mulPose(Axis.YP.rotationDegrees(sign*45));
+            pose.translate(-sign,3.6,3.5);pose.mulPose(Axis.ZP.rotationDegrees(sign*120));pose.mulPose(Axis.XP.rotationDegrees(200));pose.mulPose(Axis.YP.rotationDegrees(sign*-135));pose.translate(sign*5.6,0,0);
+            arm.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);sleeve.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);pose.popPose();
+        }
+        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();CombatVisuals.clear();}
     }
     public static final class FateScreen extends Screen {
         private EditBox search;
@@ -164,9 +206,9 @@ public final class Client {
             if(c!=null){
                 g.drawString(font,c.name(),dx,y,0xff000000|c.tint());y+=17;
                 g.drawString(font,c.role().toUpperCase(Locale.ROOT),dx,y,0xff959eb1);y+=24;
-                for(int i=0;i<c.moves().size();i++){var m=c.moves().get(i);g.drawWordWrap(font,Component.literal(new String[]{"Z","X","C"}[i]+" • "+m.name()),dx,y,w/2-25,0xffe0e3ea);y+=22;g.drawString(font,"Lv "+m.level()+" / CE "+m.cost()+(c.id().equals(state.getString("path"))?" / M"+Progress.mastery(state.getInt("mastery"+i)):""),dx,y,0xff7d9eb9);y+=20;}
+                for(int i=0;i<c.moves().size();i++){var m=c.moves().get(i);g.drawWordWrap(font,Component.literal("Technique "+(i+1)+" • "+m.name()),dx,y,w/2-25,0xffe0e3ea);y+=22;g.drawString(font,"Lv "+m.level()+" / CE "+m.cost()+(c.id().equals(state.getString("path"))?" / M"+Progress.mastery(state.getInt("mastery"+i)):""),dx,y,0xff7d9eb9);y+=20;}
                 g.drawWordWrap(font,Component.literal(c.domain().isEmpty()?"No innate domain. Simple Domain: G":"R • "+c.domain()+" (Lv 30)"),dx,y,w/2-25,0xffb7a0dc);
-                if(height>340){y+=36;g.drawWordWrap(font,Component.literal("V: Reverse Cursed Technique (Lv 24)\nB: Reinforcement • G: Simple Domain\nK: Journal • Z/X/C: Techniques"),dx,y,w/2-25,0xffa9b5c8);}
+                if(height>340){y+=36;g.drawWordWrap(font,Component.literal("V: Reverse Cursed Technique (Lv 24)\nB: Reinforcement • G: Simple Domain\nK: Journal • Z: Cycle / X: Cast"),dx,y,w/2-25,0xffa9b5c8);}
             }
             g.disableScissor();
             g.drawString(font,"Scroll here for details",dx,height-(selecting?76:98),0xff8b94aa);

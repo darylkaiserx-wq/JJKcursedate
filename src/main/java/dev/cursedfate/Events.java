@@ -20,7 +20,7 @@ public final class Events {
     private static final UUID HEALTH=UUID.fromString("6bac7c17-637a-4c90-9d97-bbf885f6f256");
     @SubscribeEvent public static void login(PlayerEvent.PlayerLoggedInEvent event){
         if(!(event.getEntity() instanceof ServerPlayer p))return;var d=Progress.data(p);
-        d.remove("requestAfter");
+        d.remove("requestAfter");Combat.cancel(p);
         if(!d.getBoolean("bookGiven")){if(!p.getInventory().add(new ItemStack(CursedFate.BOOK.get())))p.drop(new ItemStack(CursedFate.BOOK.get()),false);d.putBoolean("bookGiven",true);d.putFloat("energy",Progress.maxEnergy(p));}
         Net.sync(p,false);Net.appearance(p);
         for(var other:p.serverLevel().getServer().getPlayerList().getPlayers())Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(()->p),new Net.Appearance(other.getUUID(),Progress.data(other).getString("path")));
@@ -29,10 +29,10 @@ public final class Events {
         var old=event.getOriginal().getPersistentData().getCompound(Player.PERSISTED_NBT_TAG).copy();
         event.getEntity().getPersistentData().put(Player.PERSISTED_NBT_TAG,old);
         Progress.data(event.getEntity()).putFloat("energy",Progress.maxEnergy(event.getEntity()));
-        Domains.remove(event.getOriginal().getUUID());
+        Combat.cancel(event.getEntity());Domains.remove(event.getOriginal().getUUID());
     }
-    @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent event){Domains.remove(event.getEntity().getUUID());}
-    @SubscribeEvent public static void dimension(PlayerEvent.PlayerChangedDimensionEvent event){Domains.remove(event.getEntity().getUUID());}
+    @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent event){Domains.remove(event.getEntity().getUUID());Combat.cancel(event.getEntity());}
+    @SubscribeEvent public static void dimension(PlayerEvent.PlayerChangedDimensionEvent event){Domains.remove(event.getEntity().getUUID());Combat.cancel(event.getEntity());}
     @SubscribeEvent public static void stop(ServerStoppedEvent event){Domains.clear();}
     @SubscribeEvent public static void tick(TickEvent.PlayerTickEvent event){
         if(event.phase!=TickEvent.Phase.END||!(event.player instanceof ServerPlayer p)||p.tickCount%10!=0)return;
@@ -49,12 +49,13 @@ public final class Events {
         if(existing==null||existing.getAmount()!=bonus){health.removeModifier(HEALTH);health.addTransientModifier(new AttributeModifier(HEALTH,"Sorcerer vitality",bonus,AttributeModifier.Operation.ADDITION));}
         Net.sync(p,false);
     }
+    @SubscribeEvent public static void combatTick(TickEvent.PlayerTickEvent e){if(e.phase==TickEvent.Phase.END&&e.player instanceof ServerPlayer p)Combat.tick(p);}
     @SubscribeEvent public static void levelTick(TickEvent.LevelTickEvent event){if(event.phase==TickEvent.Phase.END&&event.level instanceof net.minecraft.server.level.ServerLevel w)Domains.tick(w);}
     @SubscribeEvent public static void summonTick(LivingEvent.LivingTickEvent event){
         var e=event.getEntity();if(e instanceof Wolf&&!e.level().isClientSide&&e.getPersistentData().contains("expires")&&e.level().getGameTime()>=e.getPersistentData().getLong("expires"))e.discard();
     }
     @SubscribeEvent public static void kill(LivingDeathEvent event){
-        var killed=event.getEntity();if(killed instanceof Player)Domains.remove(killed.getUUID());
+        var killed=event.getEntity();if(killed instanceof Player player){Domains.remove(killed.getUUID());Combat.cancel(player);}
         if(!(event.getSource().getEntity() instanceof ServerPlayer p))return;
         if(!(killed instanceof Monster)&&!(killed instanceof Sorcerer s&&s.character().hostile()))return;
         if(Progress.character(p)==null)return;
@@ -70,7 +71,7 @@ public final class Events {
             var d=Progress.data(p);long now=p.level().getGameTime();
             // A melee hit within 10 ticks of a technique is a timed Black Flash, with a cooldown.
             if(now-d.getLong("lastCast")<=10&&d.contains("lastCast")&&now>=d.getLong("flashAfter")&&Progress.pay(p,12)){
-                event.setAmount(event.getAmount()*1.8f);d.putLong("flashAfter",now+100);Progress.award(p,12);Actions.pulse(event.getEntity(),"blood",3);Actions.message(p,"BLACK FLASH!");
+                event.setAmount(event.getAmount()*1.8f);d.putLong("flashAfter",now+100);Progress.award(p,12);Effects.at(event.getEntity(),"black_flash");Net.animate(p,"black_flash");p.serverLevel().playSound(null,p.blockPosition(),CursedFate.AUDIO.get("black_flash").get(),net.minecraft.sounds.SoundSource.PLAYERS,1,1);Actions.message(p,"BLACK FLASH!");
             }
         }
     }

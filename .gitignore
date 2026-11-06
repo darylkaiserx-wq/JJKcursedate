@@ -28,3 +28,6 @@ run-data/
 logs/
 *.log
 scripts/__pycache__/
+
+# Generated local artwork previews
+output/

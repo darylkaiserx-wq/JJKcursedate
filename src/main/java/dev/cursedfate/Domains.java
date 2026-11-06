@@ -34,6 +34,7 @@ public final class Domains {
         }
         if(lose){Actions.message(p,"Domain clash! Your barrier collapsed.");return;}
         list.add(new Domain(p.getUUID(),p.position(),now+240,strength,c.id()));
+        Net.animate(p,"cast");Effects.at(p,"barrier");
         p.serverLevel().playSound(null,p.blockPosition(),CursedFate.DOMAIN_SOUND.get(),net.minecraft.sounds.SoundSource.PLAYERS,1,1);
         p.serverLevel().players().stream().filter(x->x.distanceToSqr(p)<1600).forEach(x->x.displayClientMessage(Component.literal("Domain Expansion: "+c.domain()),false));
     }

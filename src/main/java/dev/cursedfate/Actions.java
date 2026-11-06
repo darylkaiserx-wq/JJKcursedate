@@ -32,6 +32,9 @@ public final class Actions {
         if(Progress.character(p)==null){message(p,"Choose a character with your Fate Book first.");return;}
         if(Progress.heavenly(p)&&java.util.Set.of("rct","guard","reinforce","amplify","vow").contains(action)){message(p,"Heavenly Restriction: physical power replaces cursed energy.");return;}
         switch(action){
+            case "cycle"->{d.putInt("selectedTechnique",(Math.floorMod(d.getInt("selectedTechnique"),3)+1)%3);message(p,"Selected: "+Progress.character(p).moves().get(d.getInt("selectedTechnique")).name());}
+            case "castSelected"->cast(p,Math.floorMod(d.getInt("selectedTechnique"),3));
+            case "quick","heavy","barrage"->Combat.punch(p,action);
             case "vow" -> {if(now>=d.getLong("vowAfter")){d.putBoolean("vow",!d.getBoolean("vow"));d.putLong("vowAfter",now+200);message(p,"Binding Vow "+(d.getBoolean("vow")?"active: +30% technique damage, +20% damage taken":"released"));}}
             case "amplify" -> {boolean on=!d.getBoolean("amplify");d.putBoolean("amplify",on);message(p,"Domain Amplification "+(on?"enabled: disables innate techniques":"disabled"));}
             case "cast" -> cast(p,slot);
@@ -90,7 +93,7 @@ public final class Actions {
     public static void perform(LivingEntity caster,Catalog.Move m,float scale){
         if(!(caster.level() instanceof ServerLevel world))return;
         var target=aimed(caster,22);float damage=m.power()*scale;
-        pulse(caster,m.kind(),8);
+        pulse(caster,m.kind(),8);Net.animate(caster,"cast");
         if(m.name().equals("Nue"))Summons.spawn(caster,"nue");
         switch(m.kind()){
             case "shield" -> {caster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,160,1));caster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,160,0));}
@@ -121,7 +124,7 @@ public final class Actions {
                 case "lightning" -> target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,40,2));
             }}}
         }
-        world.playSound(null,caster.blockPosition(),m.kind().equals("heal")?SoundEvents.AMETHYST_BLOCK_CHIME:CursedFate.IMPACT.get(),SoundSource.PLAYERS,.7f,1.1f);
+        world.playSound(null,caster.blockPosition(),m.kind().equals("heal")?SoundEvents.AMETHYST_BLOCK_CHIME:CursedFate.AUDIO.get(switch(m.kind()){case "fire"->"fire";case "lightning"->"lightning";case "blood"->"blood";case "strike","rush","cut"->"slash";default->"charge";}).get(),SoundSource.PLAYERS,.7f,1.1f);
     }
     public static void hit(LivingEntity caster,LivingEntity target,float amount){
         if(!enemy(caster,target))return;
@@ -129,12 +132,13 @@ public final class Actions {
     }
     public static void pulse(LivingEntity e,String kind,int radius){
         if(!(e.level() instanceof ServerLevel w))return;
+        Effects.at(e,kind);
         ParticleOptions particle=switch(kind){case "fire"->ParticleTypes.FLAME;case "heal","plant"->ParticleTypes.HAPPY_VILLAGER;case "ice","water"->ParticleTypes.SNOWFLAKE;case "blood"->ParticleTypes.CRIMSON_SPORE;default->ParticleTypes.SOUL_FIRE_FLAME;};
         w.sendParticles(particle,e.getX(),e.getY()+1,e.getZ(),Settings.PARTICLES.get(),radius*.15,.7,radius*.15,.02);
     }
     public static void beam(LivingEntity from,LivingEntity target,String kind){
         if(!(from.level() instanceof ServerLevel w))return;
         int n=Math.min(Settings.PARTICLES.get(),24);Vec3 start=from.getEyePosition(),delta=target.getEyePosition().subtract(start);
-        for(int i=0;i<n;i++){Vec3 p=start.add(delta.scale((double)i/Math.max(1,n)));w.sendParticles(kind.equals("fire")?ParticleTypes.FLAME:ParticleTypes.END_ROD,p.x,p.y,p.z,1,0,0,0,0);}
+        for(int i=0;i<n;i++){Vec3 p=start.add(delta.scale((double)i/Math.max(1,n)));w.sendParticles(Effects.SPRITES.get(Effects.sprite(kind)).get(),p.x,p.y,p.z,1,0,0,0,0);}
     }
 }

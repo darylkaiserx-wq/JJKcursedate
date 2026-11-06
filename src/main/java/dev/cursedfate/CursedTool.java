@@ -8,6 +8,7 @@ public final class CursedTool extends SwordItem {
     public CursedTool(String tool){super(Tiers.DIAMOND,4,-2.4f,new Item.Properties().durability(1561));this.tool=tool;}
     @Override public boolean hurtEnemy(ItemStack stack,LivingEntity target,LivingEntity attacker){
         if(!attacker.level().isClientSide){
+            Net.animate(attacker,"weapon");Effects.at(target,"slash");
             switch(tool){
                 case "inverted_spear","black_rope" -> {target.removeEffect(MobEffects.DAMAGE_RESISTANCE);target.removeEffect(MobEffects.DAMAGE_BOOST);}
                 case "soul_split_katana","executioner_sword" -> target.hurt(attacker.damageSources().magic(),3);

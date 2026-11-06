@@ -1,0 +1,26 @@
+{
+  "generator": "CodeRabbit",
+  "generatedBy": [
+    "scripts/art_upgrade.py",
+    "scripts/sound_assets.py"
+  ],
+  "sources": {
+    "trendyguy.png": "user attachment, used for fabric luminance reference",
+    "blackflashanim.png": "user attachment, normalized into six animated particle frames",
+    "bloodorb2.png": "user attachment, used in animated blood orb",
+    "gojo-reference.jpeg": "user attachment, visual palette reference only"
+  },
+  "generatedAssets": [
+    "68 shaded Minecraft skins",
+    "12 particle sequences",
+    "14 tool models and materials",
+    "5 building materials",
+    "9 synthesized mono sound effects",
+    "16 outfit armor atlases"
+  ],
+  "limitations": [
+    "shared procedural animation timelines",
+    "no licensed voices or music",
+    "no claim of full canonical character likeness"
+  ]
+}

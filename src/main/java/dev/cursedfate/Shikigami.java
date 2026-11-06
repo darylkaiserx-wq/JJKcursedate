@@ -11,10 +11,16 @@ public final class Shikigami extends PathfinderMob {
     public final String form;
     public Shikigami(EntityType<? extends PathfinderMob> type,Level level,String form){super(type,level);this.form=form;setPersistenceRequired();}
     public static AttributeSupplier.Builder attributes(){return Mob.createMobAttributes().add(Attributes.MAX_HEALTH,30).add(Attributes.MOVEMENT_SPEED,.36).add(Attributes.ATTACK_DAMAGE,6).add(Attributes.FOLLOW_RANGE,24);}
-    @Override protected void registerGoals(){goalSelector.addGoal(0,new FloatGoal(this));}
+    @Override public SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor world,net.minecraft.world.DifficultyInstance difficulty,MobSpawnType reason,SpawnGroupData group,CompoundTag tag){
+        if(reason==MobSpawnType.SPAWN_EGG)getPersistentData().putBoolean("creativeExhibit",true);
+        return super.finalizeSpawn(world,difficulty,reason,group,tag);
+    }
+    @Override protected void registerGoals(){goalSelector.addGoal(0,new FloatGoal(this));goalSelector.addGoal(5,new net.minecraft.world.entity.ai.goal.RandomStrollGoal(this,.7));goalSelector.addGoal(6,new net.minecraft.world.entity.ai.goal.LookAtPlayerGoal(this,net.minecraft.world.entity.player.Player.class,8));}
+
     @Override public void aiStep(){
         super.aiStep();if(level().isClientSide)return;var d=getPersistentData();
-        if(!d.hasUUID("owner")||level().getGameTime()>=d.getLong("expires")){discard();return;}
+        if(!d.hasUUID("owner")){if(d.getBoolean("creativeExhibit"))return;discard();return;}
+        if(level().getGameTime()>=d.getLong("expires")){discard();return;}
         var owner=((net.minecraft.server.level.ServerLevel)level()).getEntity(d.getUUID("owner"));
         if(!(owner instanceof LivingEntity living)||!owner.isAlive()){discard();return;}
         if(distanceToSqr(owner)>4096){discard();return;}
