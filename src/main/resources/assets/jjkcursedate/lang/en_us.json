@@ -240,5 +240,6 @@
   "item.jjkcursedate.death_painting_7": "Cursed Womb: Death Painting 7",
   "item.jjkcursedate.death_painting_8": "Cursed Womb: Death Painting 8",
   "item.jjkcursedate.death_painting_9": "Cursed Womb: Death Painting 9",
-  "item.jjkcursedate.relic_description": "Collectible cursed object"
+  "item.jjkcursedate.relic_description": "Collectible cursed object",
+  "block.jjkcursedate.domain_barrier": "Temporary Domain Barrier"
 }

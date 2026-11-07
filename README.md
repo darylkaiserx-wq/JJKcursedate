@@ -1,5 +1,9 @@
 <!-- coderabbit-ai-generated:v1 -->
 
+<!-- coderabbit-ai-generated-section:v1:a9069c68eb7dbbce34b62a5a1c4c465c5597744a1a0127d069933d651350191c -->
+
+<!-- coderabbit-ai-generated-section:v1:c80bd0ad14472b6142fb621868b5956f34f743dbee6981e620d82a05ae572222 -->
+
 <!-- coderabbit-ai-generated-section:v1:b0f5ae5e8f1a88d1953b0c7da3b1e1b8141ec5fabfa284e3c634e0e68e2f7e4e -->
 
 <!-- coderabbit-ai-generated-section:v1:3e45e36717c17901b743c3ac2c3bcb7bb13b366087c15ec768872fb1b3e976d4 -->
@@ -28,12 +32,22 @@ A playable development alpha for Minecraft Java 1.20.1 + Forge 47.3.0. Install t
 
 ## Play
 
-1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.5.0.jar` in `mods/`.
+1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.6.0.jar` in `mods/`.
 2. In creative mode, open your inventory and click **JJK Characters** at the bottom of the screen. You can choose or change a path without a book. Switching preserves overall XP/rank, clears path mastery and queued attacks, and ends your domain. Survival retains its one-time book choice.
 3. Join a world. The Fate Book is granted once. The character selector automatically appears on joining with no chosen path. Right-click it, search/select a character and click **Choose character**. Selection consumes the book and closes the UI after server confirmation. Your path persists through death and reconnect.
 4. Use **Z to cycle techniques** and **X to cast the selected technique**; **C quick punch / H heavy punch / J six-hit barrage**; R for Domain Expansion; V for RCT; G for Simple Domain; B for reinforcement; K for the journal. Rebind in Minecraft Controls. Scroll the right side of the book to read details at smaller GUI sizes.
 5. Techniques II and III unlock at levels 8 and 18; RCT at 24; innate domains at 30. Kill hostile mobs/curses for XP. Use `/jjk mission` to claim a reward every five kills.
 6. Promote through Grade 4 → Grade 3 → Grade 2 → Grade 1 → Special Grade in the journal. Requirements: levels 8 / 18 / 32 / 48 plus 5 / 10 / 15 / 20 kills since the previous promotion. Health bonus caps at +16 health points (+8 hearts), with +8 further health points for Heavenly Restriction; passive rank damage reduction caps at 16%.
+
+## Destructive attacks and rounded domains (0.6.0)
+
+Terrain damage is now enabled by default, intentionally changing the earlier no-terrain-change rule. Each move has an explicit destructive rating: physical strikes, cutting attacks, Blue/Red/Purple, fire, cannons, blood projectiles and other destructive attacks can crater or carve blocks. Support adaptations, healing, shields, ordinary teleportation and summons do not directly break blocks. Destruction uses the first aimed surface, up to 22 blocks away (4 for melee/rush), with stronger moves affecting larger areas. Purple and cutting/blood/lightning moves carve paths with a 3-block clearance around the casting origin to preserve footing. No block drops or chain explosions are created.
+
+Containers/block entities, fluids, unbreakable blocks, hardness above 8, and `jjkcursedate:terrain_immune` blocks are protected. Player breaking respects Forge break cancellation and spawn protection. NPC destruction respects `mobGriefing` and entity-destroy hooks. Default cap: 128 broken blocks per cast, with a shared 512-block limit per dimension per tick.
+
+Every registered domain now constructs a closed voxel hemisphere with a circular floor and curved roof, widening from its center over multiple ticks. This shared Minecraft enclosure also applies to paths whose canonical domains are open. Up to 128 candidate positions are processed per active domain per tick. Only air is filled; existing terrain, containers and occupied entity positions are left intact. Cleanup runs on expiry, clashes, path changes, death, logout, dimension changes and normal server shutdown. Every barrier block also has a persisted 260-tick self-removal timer, so orphaned blocks clean up when their chunks tick after a restart. Temporary barriers cannot be pushed by pistons and have no item drops. Explored terrain is never replaced to build a domain; blocked spaces may interrupt its surface.
+
+Config (`config/jjkcursedate-common.toml`): `techniqueDestruction`, `npcDestruction`, `domainBlocks`, `destructionBlocksPerCast` (1–256), and existing `domainRadius` (6–20). Set `techniqueDestruction=false` to retain terrain and `domainBlocks=false` for decorative domain visuals only. Existing costs, cooldowns and entity damage remain unchanged. Player technique PvP remains disabled by default independently of terrain damage.
 
 ## Visual redesign (0.5.0)
 
@@ -87,7 +101,7 @@ All 14 existing cursed tools can be found, alongside 11 new collectible cursed o
 
 Rare city blocks, residences and curse ruins generate in new Overworld chunks. City buildings have accessible ladder shafts. Grasshopper curses and finger bearers spawn in darkness. Other NPCs use spawn eggs or commands; they are not all naturally generated. Trainers open the journal; civilians provide ambient dialogue. Named NPCs have textured humanoid models, selected silhouette additions, walking/attack/hurt/death poses and casting arm animation. Choosing a character also changes player appearance, including first-person arms. Synchronized keyframed casting, quick punch, heavy windup, alternating barrage, Black Flash and weapon poses animate the player model. Empty-hand casting and barrage show both arms in first person. Subtle first-person pitch/roll can be disabled with `cameraMotion=false`. Character profiles direct the procedural clips and movement; see the 0.5.0 visual coverage above. Summons have distinct meshes and articulated procedural motion.
 
-Techniques and domains do not change terrain. Domains last 12 seconds, have a default 12-block radius and an upper bound of eight active per dimension; summons expire after 30 seconds. Default technique PVP is disabled. Config: `config/jjkcursedate-common.toml`, including particle budget, domain radius, camera motion and technique PVP. This limits effects; no FPS or multiplayer load guarantee has been measured.
+Destructive techniques now break terrain permanently by default; domains add temporary blocks in air only. Domains last 12 seconds, have a default 12-block radius and an upper bound of eight active per dimension; summons expire after 30 seconds. Default technique PVP is disabled. Config: `config/jjkcursedate-common.toml`, including particle budget, domain radius, camera motion and technique PVP. This limits effects; no FPS or multiplayer load guarantee has been measured.
 
 ## Commands
 

@@ -87,3 +87,8 @@ for name in ['divine_dog','nue','rika_manifestation','cursed_spirit','moon_dregs
 for name in ['fate_book','curse_fragment']:
     assert json.loads((a/f'models/item/{name}.json').read_text())['elements']
 print('PASS: eight summon material atlases and sculpted utility items')
+barrier=json.loads((a/'models/block/domain_barrier.json').read_text())
+assert (a/'textures'/(barrier['textures']['all'].split(':')[1]+'.png')).exists()
+assert json.loads((a/'blockstates/domain_barrier.json').read_text())['variants']['']['model']=='jjkcursedate:block/domain_barrier'
+assert 'jjkcursedate:domain_barrier' in json.loads((d/'tags/blocks/terrain_immune.json').read_text())['values']
+print('PASS: temporary domain model and destruction immunity tag')

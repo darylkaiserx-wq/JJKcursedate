@@ -12,8 +12,8 @@ import java.util.*;
 public final class Domains {
     public record Domain(UUID owner,Vec3 center,long until,int strength,String path){}
     private static final Map<net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>,List<Domain>> ACTIVE=new HashMap<>();
-    public static void clear(){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());if(world!=null)for(var d:entry.getValue())Net.domain(world,d,0);}ACTIVE.clear();}
-    public static void remove(UUID owner){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());entry.getValue().removeIf(d->{if(!d.owner().equals(owner))return false;if(world!=null)Net.domain(world,d,0);return true;});}}
+    public static void clear(){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());if(world!=null)for(var d:entry.getValue()){DomainBlocks.remove(world,d.owner());Net.domain(world,d,0);}}ACTIVE.clear();}
+    public static void remove(UUID owner){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());entry.getValue().removeIf(d->{if(!d.owner().equals(owner))return false;if(world!=null){DomainBlocks.remove(world,d.owner());Net.domain(world,d,0);}return true;});}}
     public static int count(ServerLevel world){return ACTIVE.getOrDefault(world.dimension(),List.of()).size();}
     public static void openNpc(Sorcerer npc){
         if(npc.character().domain().isEmpty())return;
@@ -30,7 +30,7 @@ public final class Domains {
         d.putLong("domainAfter",now+1200);int strength=Progress.level(p)+d.getInt("rank")*5;
         boolean lose=false;for(var other:new ArrayList<>(list))if(other.center().distanceTo(p.position())<Settings.DOMAIN_RADIUS.get()*2){
             if(other.strength()>=strength)lose=true;
-            if(other.strength()<=strength){list.remove(other);Net.domain(p.serverLevel(),other,0);}
+            if(other.strength()<=strength){list.remove(other);DomainBlocks.remove(p.serverLevel(),other.owner());Net.domain(p.serverLevel(),other,0);}
         }
         if(lose){Actions.message(p,"Domain clash! Your barrier collapsed.");return;}
         var domain=new Domain(p.getUUID(),p.position(),now+240,strength,c.id());list.add(domain);Net.domain(p.serverLevel(),domain,240);
@@ -41,7 +41,8 @@ public final class Domains {
     public static void tick(ServerLevel world){
         var list=ACTIVE.get(world.dimension());if(list==null)return;
         long now=world.getGameTime();
-        list.removeIf(d->{boolean expired=now>=d.until()||!(world.getEntity(d.owner()) instanceof LivingEntity e)||!e.isAlive()||e.position().distanceTo(d.center())>Settings.DOMAIN_RADIUS.get()*2;if(expired)Net.domain(world,d,0);return expired;});
+        list.removeIf(d->{boolean expired=now>=d.until()||!(world.getEntity(d.owner()) instanceof LivingEntity e)||!e.isAlive()||e.position().distanceTo(d.center())>Settings.DOMAIN_RADIUS.get()*2;if(expired){DomainBlocks.remove(world,d.owner());Net.domain(world,d,0);}return expired;});
+        for(var d:list)DomainBlocks.grow(world,d);
         if(now%40==0)for(var d:list)Net.domain(world,d,(int)(d.until()-now));
         if(now%10!=0)return;
         for(var d:list){

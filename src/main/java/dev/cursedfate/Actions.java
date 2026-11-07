@@ -133,6 +133,7 @@ public final class Actions {
                 case "lightning" -> target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,40,2));
             }}}
         }
+        Destruction.cast(caster,m,visualOrigin);
         Net.technique(caster,m,visualTarget,visualOrigin);
         world.playSound(null,caster.blockPosition(),m.kind().equals("heal")?SoundEvents.AMETHYST_BLOCK_CHIME:CursedFate.AUDIO.get(switch(m.kind()){case "fire"->"fire";case "lightning"->"lightning";case "blood"->"blood";case "strike","rush","cut"->"slash";default->"charge";}).get(),SoundSource.PLAYERS,.7f,1.1f);
     }

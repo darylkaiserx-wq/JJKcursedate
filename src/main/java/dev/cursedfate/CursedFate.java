@@ -24,6 +24,7 @@ public final class CursedFate {
     public static final Map<String,RegistryObject<net.minecraft.sounds.SoundEvent>> AUDIO=new LinkedHashMap<>();
     static {for(String name:List.of("quick","heavy","barrage","charge","black_flash","slash","fire","lightning","blood"))AUDIO.put(name,SOUNDS.register(name,()->net.minecraft.sounds.SoundEvent.createVariableRangeEvent(id(name))));}
     public static final DeferredRegister<net.minecraft.world.level.block.Block> BLOCKS=DeferredRegister.create(ForgeRegistries.BLOCKS,ID);
+    public static final RegistryObject<net.minecraft.world.level.block.Block> DOMAIN_BARRIER=BLOCKS.register("domain_barrier",DomainBlocks.Barrier::new);
     public static final Map<String,RegistryObject<net.minecraft.world.level.block.Block>> MATERIALS=new LinkedHashMap<>();
     public static final DeferredRegister<Item> ITEMS=DeferredRegister.create(ForgeRegistries.ITEMS,ID);
     public static final DeferredRegister<EntityType<?>> ENTITIES=DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,ID);

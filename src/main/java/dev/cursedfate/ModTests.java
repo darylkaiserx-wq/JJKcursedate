@@ -198,4 +198,46 @@ public final class ModTests {
         h.assertTrue(strike.origin().distanceTo(strike.end())<=4.01,"Melee visual cannot imply a22-block hit");h.succeed();
     }
 
+    @GameTest(template="city_test") public static void destructiveTechniques(GameTestHelper h){
+        var world=h.getLevel();var p=mockServerPlayer(h);Progress.data(p).putString("path","gojo");
+        p.moveTo(h.absolutePos(new BlockPos(6,3,2)),0,0);
+        var base=h.absolutePos(new BlockPos(6,4,7));
+        for(var pos:BlockPos.betweenClosed(base.offset(-2,-2,0),base.offset(2,2,2)))world.setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+        var footing=BlockPos.containing(p.position()).below();world.setBlock(footing,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+        Destruction.cast(p,Catalog.get("gojo").moves().get(2),p.getEyePosition());
+        h.assertTrue(world.getBlockState(footing).is(net.minecraft.world.level.block.Blocks.STONE),"Beam muzzle clearance preserves caster footing");
+        int broken=0;for(var pos:BlockPos.betweenClosed(base.offset(-2,-2,0),base.offset(2,2,2)))if(world.getBlockState(pos).isAir())broken++;
+        h.assertTrue(broken>0&&broken<=Settings.DESTRUCTION_LIMIT.get(),"Purple carves terrain within the cast budget");
+        var safe=base.offset(4,0,0);
+        for(var block:java.util.List.of(net.minecraft.world.level.block.Blocks.CHEST,net.minecraft.world.level.block.Blocks.BEDROCK,net.minecraft.world.level.block.Blocks.OBSIDIAN,CursedFate.DOMAIN_BARRIER.get())){
+            world.setBlock(safe,block.defaultBlockState(),3);h.assertTrue(!Destruction.breakBlock(world,p,safe)&&world.getBlockState(safe).is(block),"Protected blocks survive: "+block);
+        }
+        world.removeBlock(safe,false);h.succeed();
+    }
+    @GameTest(template="empty") public static void nonDestructivePaths(GameTestHelper h){
+        for(var c:Catalog.ALL)for(int i=0;i<3;i++){
+            var move=c.moves().get(i);
+            if(c.civilian()||java.util.Set.of("heal","shield","swap","teleport","summon","flight").contains(move.kind()))h.assertTrue(Destruction.radius(c.id(),i)==0,"Support/movement move stays non-destructive: "+c.id()+"/"+move.name());
+        }
+        h.assertTrue(Destruction.radius("shoko",2)==0&&Destruction.radius("takaba",1)==0,"Support adaptations cannot destroy terrain");h.succeed();
+    }
+    @GameTest(template="city_test",timeoutTicks=290) public static void roundedDomainRestoresAir(GameTestHelper h){
+        var w=h.getLevel();int old=Settings.DOMAIN_RADIUS.get();Settings.DOMAIN_RADIUS.set(6);
+        var center=net.minecraft.world.phys.Vec3.atLowerCornerOf(h.absolutePos(new BlockPos(8,4,8)));
+        var d=new Domains.Domain(java.util.UUID.randomUUID(),center,w.getGameTime()+240,30,"gojo");
+        var keep=BlockPos.containing(center).offset(6,0,0);w.setBlock(keep,net.minecraft.world.level.block.Blocks.CHEST.defaultBlockState(),3);
+        try{
+            DomainBlocks.grow(w,d);int first=DomainBlocks.placed(w,d.owner());
+            for(int i=0;i<12;i++)DomainBlocks.grow(w,d);
+            h.assertTrue(first>0&&DomainBlocks.placed(w,d.owner())>first,"Domain widens over multiple construction steps");
+            h.assertTrue(w.getBlockState(BlockPos.containing(center).above(6)).is(CursedFate.DOMAIN_BARRIER.get()),"Curved roof reaches hemisphere apex");
+            h.assertTrue(w.getBlockState(keep).is(net.minecraft.world.level.block.Blocks.CHEST),"Domain never overwrites containers");
+            DomainBlocks.remove(w,d.owner());
+            h.assertTrue(w.getBlockState(BlockPos.containing(center).above(6)).isAir(),"Removal restores air");
+            h.assertTrue(w.getBlockState(keep).is(net.minecraft.world.level.block.Blocks.CHEST),"Existing terrain survives cleanup");
+            var orphan=BlockPos.containing(center).above(7);w.setBlock(orphan,CursedFate.DOMAIN_BARRIER.get().defaultBlockState(),3);
+            h.runAfterDelay(265,()->{h.assertTrue(w.getBlockState(orphan).isAir(),"Orphaned barrier self-cleans with scheduled tick");h.succeed();});
+        }finally{DomainBlocks.remove(w,d.owner());Settings.DOMAIN_RADIUS.set(old);}
+    }
+
 }

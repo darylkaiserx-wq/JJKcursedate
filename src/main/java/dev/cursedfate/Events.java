@@ -9,7 +9,7 @@ import net.minecraft.world.effect.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import java.util.UUID;
@@ -33,7 +33,7 @@ public final class Events {
     }
     @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent event){Domains.remove(event.getEntity().getUUID());Combat.cancel(event.getEntity());}
     @SubscribeEvent public static void dimension(PlayerEvent.PlayerChangedDimensionEvent event){Domains.remove(event.getEntity().getUUID());Combat.cancel(event.getEntity());}
-    @SubscribeEvent public static void stop(ServerStoppedEvent event){Domains.clear();}
+    @SubscribeEvent public static void stop(ServerStoppingEvent event){Domains.clear();}
     @SubscribeEvent public static void tick(TickEvent.PlayerTickEvent event){
         if(event.phase!=TickEvent.Phase.END||!(event.player instanceof ServerPlayer p)||p.tickCount%10!=0)return;
         var d=Progress.data(p);if(Progress.character(p)==null){p.getAttribute(Attributes.MAX_HEALTH).removeModifier(HEALTH);p.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED);d.putBoolean("reinforce",false);d.putBoolean("amplify",false);return;}
