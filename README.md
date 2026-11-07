@@ -1,5 +1,9 @@
 <!-- coderabbit-ai-generated:v1 -->
 
+<!-- coderabbit-ai-generated-section:v1:74bff34f314692a9d00a89018bfb177a38463574ab5ecc2fecc8338c47db0af4 -->
+
+<!-- coderabbit-ai-generated-section:v1:1fc5951c3d1a37efd6bd412584a8f47136a934fac35e8bce17454de362dac68d -->
+
 <!-- coderabbit-ai-generated-section:v1:08f63b4e0cdb2704457bfbed7376a897988eaad689fedec97a16871162c6ee72 -->
 
 <!-- coderabbit-ai-generated-section:v1:301e6b19810b4ae8c6e9a794995754d57a0c6f65aae92d04b2602221a02a5eb9 -->
@@ -18,11 +22,16 @@ A playable development alpha for Minecraft Java 1.20.1 + Forge 47.3.0. Install t
 
 ## Play
 
-1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.3.0.jar` in `mods/`.
-2. Join a world. The Fate Book is granted once. Right-click it, search/select a character and click **Choose character**. Selection consumes the book and closes the UI after server confirmation. Your path persists through death and reconnect.
-3. Use **Z to cycle techniques** and **X to cast the selected technique**; **C quick punch / H heavy punch / J six-hit barrage**; R for Domain Expansion; V for RCT; G for Simple Domain; B for reinforcement; K for the journal. Rebind in Minecraft Controls. Scroll the right side of the book to read details at smaller GUI sizes.
-4. Techniques II and III unlock at levels 8 and 18; RCT at 24; innate domains at 30. Kill hostile mobs/curses for XP. Use `/jjk mission` to claim a reward every five kills.
-5. Promote through Grade 4 → Grade 3 → Grade 2 → Grade 1 → Special Grade in the journal. Requirements: levels 8 / 18 / 32 / 48 plus 5 / 10 / 15 / 20 kills since the previous promotion. Health bonus caps at +16 health points (+8 hearts), with +8 further health points for Heavenly Restriction; passive rank damage reduction caps at 16%.
+1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.3.1.jar` in `mods/`.
+2. In creative mode, open your inventory and click **JJK Characters** at the bottom of the screen. You can choose or change a path without a book. Switching preserves overall XP/rank, clears path mastery and queued attacks, and ends your domain. Survival retains its one-time book choice.
+3. Join a world. The Fate Book is granted once. The character selector automatically appears on joining with no chosen path. Right-click it, search/select a character and click **Choose character**. Selection consumes the book and closes the UI after server confirmation. Your path persists through death and reconnect.
+4. Use **Z to cycle techniques** and **X to cast the selected technique**; **C quick punch / H heavy punch / J six-hit barrage**; R for Domain Expansion; V for RCT; G for Simple Domain; B for reinforcement; K for the journal. Rebind in Minecraft Controls. Scroll the right side of the book to read details at smaller GUI sizes.
+5. Techniques II and III unlock at levels 8 and 18; RCT at 24; innate domains at 30. Kill hostile mobs/curses for XP. Use `/jjk mission` to claim a reward every five kills.
+6. Promote through Grade 4 → Grade 3 → Grade 2 → Grade 1 → Special Grade in the journal. Requirements: levels 8 / 18 / 32 / 48 plus 5 / 10 / 15 / 20 kills since the previous promotion. Health bonus caps at +16 health points (+8 hearts), with +8 further health points for Heavenly Restriction; passive rank damage reduction caps at 16%.
+
+## Selection and movement fix (0.3.1)
+
+The creative inventory now has a persistent character-menu button. Periodic state sync no longer closes the selector; it closes after the chosen path is confirmed. All roster player and NPC models have distinct walking strides and forward-leaning sprint poses, with combat poses taking priority. Airborne, swimming, crouching and mounted movement retain vanilla poses.
 
 ## Texture and animation update (0.3.0)
 

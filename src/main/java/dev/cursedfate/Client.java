@@ -30,13 +30,15 @@ public final class Client {
     private static final Map<String,PlayerRenderer> PLAYER_MODELS=new HashMap<>();
     private static PlayerRenderer renderer(net.minecraft.world.entity.player.Player p){return PLAYER_MODELS.get(style(p));}
     private static boolean renderingStyle;
+    private static boolean receivedState,offerSelection;
+    private static String pendingChoice="";
     private static String style(net.minecraft.world.entity.player.Player player){return player==Minecraft.getInstance().player?state.getString("path"):styles.getOrDefault(player.getUUID(),"");}
     @SubscribeEvent public static void playerLayer(EntityRenderersEvent.AddLayers event){
         PLAYER_MODELS.clear();
         for(var character:Catalog.ALL){String path=character.id();
             PLAYER_MODELS.put(path,new PlayerRenderer(event.getContext(),false){
                 private final PlayerModel<net.minecraft.client.player.AbstractClientPlayer> characterModel=new PlayerModel<>(event.getEntityModels().bakeLayer(layer(path)),false){
-                    @Override public void setupAnim(net.minecraft.client.player.AbstractClientPlayer e,float walk,float amount,float age,float yaw,float pitch){super.setupAnim(e,walk,amount,age,yaw,pitch);CombatVisuals.pose(this,e,age-e.tickCount);}
+                    @Override public void setupAnim(net.minecraft.client.player.AbstractClientPlayer e,float walk,float amount,float age,float yaw,float pitch){super.setupAnim(e,walk,amount,age,yaw,pitch);CombatVisuals.locomotion(this,e,walk,amount);CombatVisuals.pose(this,e,age-e.tickCount);}
                 };
                 { this.model=characterModel; }
                 @Override public PlayerModel<net.minecraft.client.player.AbstractClientPlayer> getModel(){return characterModel==null?super.getModel():characterModel;}
@@ -84,6 +86,7 @@ public final class Client {
             event.registerEntityRenderer(entry.getValue().get(),ctx->new HumanoidMobRenderer<Sorcerer,PlayerModel<Sorcerer>>(ctx,new PlayerModel<Sorcerer>(ctx.bakeLayer(layer(path)),false){
                 @Override public void setupAnim(Sorcerer e,float walk,float amount,float age,float yaw,float pitch){
                     super.setupAnim(e,walk,amount,age,yaw,pitch);
+                    CombatVisuals.locomotion(this,e,walk,amount);
                     if(e.casting()){rightArm.xRot=-1.5f;leftArm.xRot=-1.5f;rightArm.yRot=-.3f;leftArm.yRot=.3f;}
                     if(e.getHealth()<e.getMaxHealth()*.25){body.xRot=.08f;head.xRot+=.12f;}
                     CombatVisuals.pose(this,e,age-e.tickCount);jacket.copyFrom(body);rightSleeve.copyFrom(rightArm);leftSleeve.copyFrom(leftArm);
@@ -93,11 +96,16 @@ public final class Client {
     }
     public static void receive(CompoundTag data,boolean open){
         if(data==null)return;state=data;
+        if(!receivedState){receivedState=true;offerSelection=state.getString("path").isEmpty();}
         var mc=Minecraft.getInstance();if(open)mc.setScreen(new FateScreen());
-        else if(mc.screen instanceof FateScreen f&&f.selecting&&!state.getString("path").isEmpty())mc.setScreen(null);
+        else if(mc.screen instanceof FateScreen&&!pendingChoice.isEmpty()&&pendingChoice.equals(state.getString("path"))){pendingChoice="";mc.setScreen(null);}
     }
     @Mod.EventBusSubscriber(modid=CursedFate.ID,value=Dist.CLIENT)
     public static class Runtime {
+        @SubscribeEvent public static void creativeMenu(ScreenEvent.Init.Post event){
+            if(!(event.getScreen() instanceof net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen screen))return;
+            event.addListener(Button.builder(Component.literal("JJK Characters"),b->Minecraft.getInstance().setScreen(new FateScreen(true))).bounds(screen.width/2-70,screen.height-24,140,20).build());
+        }
         @SubscribeEvent public static void player(net.minecraftforge.client.event.RenderPlayerEvent.Pre event){
             var styledPlayer=renderer(event.getEntity());
             if(renderingStyle||styledPlayer==null)return;
@@ -118,6 +126,7 @@ public final class Client {
         }
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
             if(e.phase!=TickEvent.Phase.END)return;CombatVisuals.tick();if(Minecraft.getInstance().player==null)return;
+            if(offerSelection&&Minecraft.getInstance().screen==null){offerSelection=false;if(state.getString("path").isEmpty())Minecraft.getInstance().setScreen(new FateScreen(true));}
             for(var entry:KEYS.entrySet())while(entry.getValue().consumeClick()){
                 if(Minecraft.getInstance().screen==null)Net.send(entry.getKey(),0);
             }
@@ -163,7 +172,7 @@ public final class Client {
             pose.translate(-sign,3.6,3.5);pose.mulPose(Axis.ZP.rotationDegrees(sign*120));pose.mulPose(Axis.XP.rotationDegrees(200));pose.mulPose(Axis.YP.rotationDegrees(sign*-135));pose.translate(sign*5.6,0,0);
             arm.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);sleeve.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);pose.popPose();
         }
-        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();CombatVisuals.clear();}
+        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();CombatVisuals.clear();receivedState=false;offerSelection=false;pendingChoice="";}
     }
     public static final class FateScreen extends Screen {
         private EditBox search;
@@ -172,7 +181,8 @@ public final class Client {
         private String filter="all";
         private boolean selecting;
         private String selected="gojo";
-        public FateScreen(){super(Component.literal("The Book of Cursed Fate"));selecting=state.getString("path").isEmpty();if(!selecting)selected=state.getString("path");}
+        public FateScreen(){this(state.getString("path").isEmpty());}
+        public FateScreen(boolean choose){super(Component.literal("The Book of Cursed Fate"));selecting=choose;pendingChoice="";offerSelection=false;if(Catalog.get(state.getString("path"))!=null)selected=state.getString("path");}
         private int left(){return (width- Math.min(580,width-20))/2;}
         private int panel(){return Math.min(580,width-20);}
         @Override protected void init(){
@@ -193,7 +203,7 @@ public final class Client {
             for(int i=0;i<n&&page*n+i<list.size();i++){var c=list.get(page*n+i);var b=Button.builder(Component.literal(c.name()),btn->{selected=c.id();detailScroll=0;}).bounds(left()+12,94+i*24,panel()/2-22,21).build();rows.add(b);addRenderableWidget(b);}
             // Detail action buttons are created once separately by render-free layout.
             if(actionButton!=null)removeWidget(actionButton);
-            actionButton=Button.builder(Component.literal(selecting?"Choose character":"Promotion trial"),b->{if(selecting){Net.send("choose:"+selected,0);}else Net.send("promote",0);}).bounds(left()+panel()/2+12,height-65,panel()/2-24,22).build();addRenderableWidget(actionButton);
+            actionButton=Button.builder(Component.literal(selecting?"Choose character":"Promotion trial"),b->{if(selecting){pendingChoice=selected;Net.send("choose:"+selected,0);}else Net.send("promote",0);}).bounds(left()+panel()/2+12,height-65,panel()/2-24,22).build();addRenderableWidget(actionButton);
             if(!selecting&&missionButton==null){missionButton=Button.builder(Component.literal("Claim mission"),b->Net.send("mission",0)).bounds(left()+panel()/2+12,height-92,panel()/2-24,22).build();addRenderableWidget(missionButton);}
         }
         private Button actionButton,missionButton;

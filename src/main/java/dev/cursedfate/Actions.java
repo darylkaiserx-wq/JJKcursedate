@@ -23,7 +23,15 @@ public final class Actions {
         if(now<d.getLong("requestAfter"))return;d.putLong("requestAfter",now+3);
         if(action.startsWith("choose:")){
             String id=action.substring(7);var c=Catalog.get(id);
-            if(c==null||!d.getString("path").isEmpty()||!p.getInventory().contains(new ItemStack(CursedFate.BOOK.get())))return;
+            if(c==null)return;
+            boolean creative=p.isCreative();
+            if(!creative&&(!d.getString("path").isEmpty()||!p.getInventory().contains(new ItemStack(CursedFate.BOOK.get()))))return;
+            if(!d.getString("path").equals(id)){
+                Combat.cancel(p);Domains.remove(p.getUUID());
+                for(int i=0;i<3;i++)d.remove("mastery"+i);
+                for(String flag:java.util.List.of("reinforce","amplify","vow"))d.putBoolean(flag,false);
+                d.putInt("selectedTechnique",0);
+            }
             d.putString("path",id);d.putFloat("energy",Progress.maxEnergy(p));
             for(int i=0;i<p.getInventory().getContainerSize();i++)if(p.getInventory().getItem(i).is(CursedFate.BOOK.get())){p.getInventory().getItem(i).shrink(1);break;}
             message(p,"Your fate: "+c.name()+" • Press K for your journal");Net.sync(p,false);Net.appearance(p);return;

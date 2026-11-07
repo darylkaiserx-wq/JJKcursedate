@@ -17,6 +17,21 @@ public final class CombatVisuals {
     public static float phase(LivingEntity e,float partial){var c=current(e);return c==null?0:Mth.clamp((e.level().getGameTime()-c.start()+partial)/c.length(),0,1);}
     // Piecewise keyframe interpolation gives a windup, a fast contact pose, then recovery.
     public static float envelope(float t){if(t<.3f)return t/.3f*.35f;if(t<.45f)return Mth.lerp((t-.3f)/.15f,.35f,1);return (1-t)/.55f;}
+    /** Locomotion overlays vanilla stride for all roster models, with combat taking priority. */
+    public static <T extends LivingEntity> void locomotion(PlayerModel<T> model,T actor,float walk,float amount){
+        // setupAnim does not reset these pivots/rotations on every frame.
+        model.body.xRot=actor.isCrouching()?.5f:0;
+        if(!actor.onGround()||actor.isCrouching()||actor.isPassenger()||actor.isSwimming()||actor.isFallFlying()||amount<.01f)return;
+        boolean running=actor.isSprinting()||actor.getDeltaMovement().horizontalDistanceSqr()>.065;
+        float weight=Mth.clamp(amount,0,1),stride=(float)Math.cos(walk*(running?.9f:.6662f));
+        model.body.xRot=(running?.19f:.035f)*weight;
+        model.rightLeg.xRot=stride*(running?1.15f:.75f)*weight;model.leftLeg.xRot=-model.rightLeg.xRot;
+        if(model.attackTime<=0&&!actor.isUsingItem()){
+            model.rightArm.xRot=-stride*(running?.95f:.65f)*weight-(running?.3f:0);
+            model.leftArm.xRot=stride*(running?.95f:.65f)*weight-(running?.3f:0);
+        }
+        model.jacket.copyFrom(model.body);model.rightSleeve.copyFrom(model.rightArm);model.leftSleeve.copyFrom(model.leftArm);model.rightPants.copyFrom(model.rightLeg);model.leftPants.copyFrom(model.leftLeg);
+    }
     public static <T extends LivingEntity> void pose(PlayerModel<T> model,T actor,float partial){
         var c=current(actor);if(c==null)return;float t=phase(actor,partial),f=envelope(t);
         switch(c.name()){

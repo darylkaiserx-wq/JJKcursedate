@@ -125,4 +125,13 @@ public final class ModTests {
         h.runAfterDelay(25,()->{Combat.punch(p,"barrage");Combat.cancel(p);});
         h.runAfterDelay(52,()->{h.assertTrue(d.getInt("barrageLeft")==0&&!d.contains("heavyAt"),"Cancellation clears delayed attacks");h.assertTrue(target.getHealth()==89,"Cancelled combo deals no damage");target.discard();h.succeed();});
     }
+    @GameTest(template="empty") public static void creativeSelectionWithoutBook(GameTestHelper h){
+        var p=mockServerPlayer(h);p.setGameMode(net.minecraft.world.level.GameType.CREATIVE);var d=Progress.data(p);
+        Actions.request(p,"choose:gojo",0);h.assertTrue(d.getString("path").equals("gojo"),"Creative menu needs no book");
+        d.putInt("xp",20000);d.putInt("mastery0",88);d.putInt("barrageLeft",6);d.remove("requestAfter");Actions.request(p,"choose:toji",0);
+        h.assertTrue(d.getString("path").equals("toji")&&Progress.maxEnergy(p)==0,"Creative can switch path");
+        h.assertTrue(d.getInt("mastery0")==0&&d.getInt("barrageLeft")==0,"Switch clears path mastery and queued punches");h.assertTrue(d.getInt("xp")==20000,"Overall experience preserved");
+        p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);d.remove("requestAfter");Actions.request(p,"choose:gojo",0);
+        h.assertTrue(d.getString("path").equals("toji"),"Survival cannot switch paths");h.succeed();
+    }
 }
