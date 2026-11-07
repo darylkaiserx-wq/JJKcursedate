@@ -1,5 +1,7 @@
 <!-- coderabbit-ai-generated:v1 -->
 
+<!-- coderabbit-ai-generated-section:v1:b19e39f6ed042878b18be2df148b271ef77396f81d8db66ee79bc5bfca78e5d8 -->
+
 <!-- coderabbit-ai-generated-section:v1:74bff34f314692a9d00a89018bfb177a38463574ab5ecc2fecc8338c47db0af4 -->
 
 <!-- coderabbit-ai-generated-section:v1:1fc5951c3d1a37efd6bd412584a8f47136a934fac35e8bce17454de362dac68d -->
@@ -22,7 +24,7 @@ A playable development alpha for Minecraft Java 1.20.1 + Forge 47.3.0. Install t
 
 ## Play
 
-1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.3.1.jar` in `mods/`.
+1. Install Minecraft Java 1.20.1 and Forge 47.3.0. Put `jjkcursedate-0.4.0.jar` in `mods/`.
 2. In creative mode, open your inventory and click **JJK Characters** at the bottom of the screen. You can choose or change a path without a book. Switching preserves overall XP/rank, clears path mastery and queued attacks, and ends your domain. Survival retains its one-time book choice.
 3. Join a world. The Fate Book is granted once. The character selector automatically appears on joining with no chosen path. Right-click it, search/select a character and click **Choose character**. Selection consumes the book and closes the UI after server confirmation. Your path persists through death and reconnect.
 4. Use **Z to cycle techniques** and **X to cast the selected technique**; **C quick punch / H heavy punch / J six-hit barrage**; R for Domain Expansion; V for RCT; G for Simple Domain; B for reinforcement; K for the journal. Rebind in Minecraft Controls. Scroll the right side of the book to read details at smaller GUI sizes.
@@ -60,6 +62,12 @@ The creative inventory now has a persistent character-menu button. Periodic stat
 
 Additional mechanics: each combat technique gains mastery from casts aimed at enemies (levels 1–10, lower energy cost and higher damage). Maki and Toji use Heavenly Restriction: zero CE, free physical techniques, extra health and speed; they cannot use RCT or CE defenses. `/jjk vow` trades energy regeneration and defense for damage; `/jjk amplify` suppresses innate techniques while enabling amplification against Infinity. `/jjk summon` lets Megumi summon Mahoraga at level 25 for 70 CE, with a 30-second cooldown.
 
+## Cursed item loot (0.4.0)
+
+Newly generated city buildings, residences and curse ruins contain loot chests. Every chest has 1–4 curse fragments. City chests have a 55% chance of one cursed tool and a 12% chance of a relic; residence chests have 65% and 20%; ruins have 100% and 45%. Each tool and relic can appear in every chest type; four common tools have three times the weight of the others. Every city has four chests, one per building; residences and ruins have one each. Existing explored chunks do not get retroactive chests. Operators can use `/jjk structure <city|residence|ruins>` on disposable ground to generate a site.
+
+All 14 existing cursed tools can be found, alongside 11 new collectible cursed objects: Sukuna's Finger, Prison Realm, and Death Paintings 1–9. The new objects have 3D models and are collectibles only: possession, sealing and reincarnation mechanics are not implemented. They also appear in the JJK creative tab. These additions do not represent every canonical cursed item. Loot tables can be customized with a data pack under `jjkcursedate:chests/city`, `residence`, and `ruins`.
+
 ## World and combat
 
 Rare city blocks, residences and curse ruins generate in new Overworld chunks. City buildings have accessible ladder shafts. Grasshopper curses and finger bearers spawn in darkness. Other NPCs use spawn eggs or commands; they are not all naturally generated. Trainers open the journal; civilians provide ambient dialogue. Named NPCs have textured humanoid models, selected silhouette additions, walking/attack/hurt/death poses and casting arm animation. Choosing a character also changes player appearance, including first-person arms. Synchronized keyframed casting, quick punch, heavy windup, alternating barrage, Black Flash and weapon poses animate the player model. Empty-hand casting and barrage show both arms in first person. Subtle first-person pitch/roll can be disabled with `cameraMotion=false`. These are shared procedural clips, with a one-hand Gojo casting variation; they are not separate cinematic choreography for every character. Summons have distinct meshes and procedural leg, arm or wing motion.
@@ -81,7 +89,7 @@ python3 scripts/check_resources.py
 ./gradlew runClient
 ```
 
-Use Java 17. To regenerate assets in order: `python3 scripts/catalog.py`, `python3 scripts/assets.py`, `python3 scripts/art_upgrade.py`, then `python3 scripts/sound_assets.py`. The art upgrade requires Pillow 13 (`python3 -m pip install Pillow==13.0.0` in a virtual environment); sound generation requires ffmpeg with libvorbis. `assets.py` alone overwrites upgraded skins/models. `art/references/` preserves the four user-provided source images; the Gojo JPEG is a visual palette reference, not an in-game portrait. The mod JAR is in `build/libs/`. Tests are Forge GameTests and require no Minecraft account. A Java client is required to play; web Preview cannot execute a Minecraft mod.
+Use Java 17. To regenerate assets in order: `python3 scripts/catalog.py`, `python3 scripts/assets.py`, `python3 scripts/art_upgrade.py`, then `python3 scripts/sound_assets.py`, and finally `python3 scripts/loot_assets.py`. The art upgrade requires Pillow 13 (`python3 -m pip install Pillow==13.0.0` in a virtual environment); sound generation requires ffmpeg with libvorbis. `assets.py` alone overwrites upgraded skins/models. `art/references/` preserves the four user-provided source images; the Gojo JPEG is a visual palette reference, not an in-game portrait. The mod JAR is in `build/libs/`. Tests are Forge GameTests and require no Minecraft account. A Java client is required to play; web Preview cannot execute a Minecraft mod.
 
 ## Remaining full-mod work
 

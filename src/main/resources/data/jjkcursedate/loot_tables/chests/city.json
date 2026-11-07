@@ -1,0 +1,172 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:curse_fragment",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:slaughter_demon",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:playful_cloud",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:inverted_spear",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:soul_split_katana",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:dragon_bone",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:black_rope",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:chain_of_a_thousand_miles",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:nanami_blade",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:festering_life_sword",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:executioner_sword",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:hiten",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:kamutoke",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:nobara_hammer",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:mechamaru_blade",
+          "weight": 3
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.55
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:sukuna_finger",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:prison_realm",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_1",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_2",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_3",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_4",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_5",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_6",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_7",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_8",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "jjkcursedate:death_painting_9",
+          "weight": 1
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.12
+        }
+      ]
+    }
+  ]
+}

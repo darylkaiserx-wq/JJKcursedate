@@ -25,10 +25,11 @@ public final class CityFeature extends Feature<NoneFeatureConfiguration> {
         // Roof eaves, panelled facades, lit windows and shrine details use the new architecture palette.
         if(type==2){for(int bx:new int[]{1,9})for(int bz:new int[]{1,9}){
             for(int x=0;x<5;x++)for(int z=0;z<5;z++)set(w,o.offset(bx+x,14,bz+z),CursedFate.MATERIALS.get("roof_tiles").get().defaultBlockState());
-            for(int y:new int[]{3,7,11})set(w,o.offset(bx+3,y,bz+3),Blocks.SEA_LANTERN.defaultBlockState());
+            for(int y:new int[]{3,7,11})set(w,o.offset(bx+2,y,bz+2),Blocks.SEA_LANTERN.defaultBlockState());
         }}else if(type==0){for(int x=0;x<15;x++)for(int z=0;z<15;z++)set(w,o.offset(x,8,z),CursedFate.MATERIALS.get("roof_tiles").get().defaultBlockState());
             for(int x:new int[]{3,11})for(int y=1;y<5;y++)set(w,o.offset(x,y,0),CursedFate.MATERIALS.get("timber_panel").get().defaultBlockState());
         }else for(int x=5;x<10;x++)for(int z=5;z<10;z++)set(w,o.offset(x,1,z),CursedFate.MATERIALS.get("curse_stone").get().defaultBlockState());
+        if(type==1)placeLoot(w,o.offset(7,2,7),"ruins");
         for(int x:new int[]{0,14})for(int z:new int[]{0,14}){for(int y=1;y<4;y++)set(w,o.offset(x,y,z),Blocks.DARK_OAK_FENCE.defaultBlockState());set(w,o.offset(x,4,z),Blocks.SEA_LANTERN.defaultBlockState());}
     }
     private static void house(net.minecraft.world.level.LevelAccessor w,BlockPos o,int size,int height,boolean city){
@@ -42,6 +43,11 @@ public final class CityFeature extends Feature<NoneFeatureConfiguration> {
         for(int y=1;y<height;y++){set(w,o.offset(0,y,1),(city?CursedFate.MATERIALS.get("plaster").get():CursedFate.MATERIALS.get("timber_panel").get()).defaultBlockState());set(w,o.offset(1,y,1),Blocks.LADDER.defaultBlockState().setValue(net.minecraft.world.level.block.LadderBlock.FACING,net.minecraft.core.Direction.EAST));}
         set(w,o.offset(size/2,1,size/2),Blocks.LANTERN.defaultBlockState());
         set(w,o.offset(size/2+1,1,size/2),Blocks.CRAFTING_TABLE.defaultBlockState());
+        placeLoot(w,o.offset(size/2+1,1,size/2+1),city?"city":"residence");
+    }
+    private static void placeLoot(net.minecraft.world.level.LevelAccessor w,BlockPos pos,String location){
+        set(w,pos,Blocks.CHEST.defaultBlockState());
+        net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity.setLootTable(w,w.getRandom(),pos,CursedFate.id("chests/"+location));
     }
     private static void set(net.minecraft.world.level.LevelAccessor w,BlockPos p,BlockState s){
         if(s.is(Blocks.WHITE_CONCRETE))s=CursedFate.MATERIALS.get("plaster").get().defaultBlockState();

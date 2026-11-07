@@ -43,3 +43,12 @@ print('PASS: 12 six-frame sprite sets, 5 materials with loot, 76 egg models, 11 
 for skin in (a/'textures/models/armor').glob('*.png'):
     assert struct.unpack('>II',skin.read_bytes()[16:24])==(128,64),skin
 print('PASS: 16 shaded outfit armor atlases')
+# Each loot location can produce every registered cursed tool and collectible relic.
+all_tools={'slaughter_demon','playful_cloud','inverted_spear','soul_split_katana','dragon_bone','black_rope','chain_of_a_thousand_miles','nanami_blade','festering_life_sword','executioner_sword','hiten','kamutoke','nobara_hammer','mechamaru_blade'}
+relics={'sukuna_finger','prison_realm'}|{f'death_painting_{i}' for i in range(1,10)}
+for loc in ['city','residence','ruins']:
+    table=json.loads((d/f'loot_tables/chests/{loc}.json').read_text())
+    entries={e['name'].split(':')[1] for pool in table['pools'] for e in pool['entries'] if e['type']=='minecraft:item'}
+    assert all_tools|relics|{'curse_fragment'} <= entries,(loc,entries)
+    for item in entries:assert (a/f'models/item/{item}.json').exists(),item
+print('PASS: all 14 tools and 11 relics in each of three location loot tables')

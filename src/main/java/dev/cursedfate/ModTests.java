@@ -134,4 +134,29 @@ public final class ModTests {
         p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);d.remove("requestAfter");Actions.request(p,"choose:gojo",0);
         h.assertTrue(d.getString("path").equals("toji"),"Survival cannot switch paths");h.succeed();
     }
+    @GameTest(template="city_test",timeoutTicks=100) public static void generatedCursedLoot(GameTestHelper h){
+        var level=h.getLevel();var origin=h.absolutePos(new BlockPos(1,1,1));
+        var parameters=new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+            .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,net.minecraft.world.phys.Vec3.atCenterOf(origin))
+            .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+        for(int type=0;type<3;type++){
+            CityFeature.build(level,origin,type);
+            var pos=origin.offset(type==0?8:type==1?7:4,2,type==0?8:type==1?7:4);
+            var entity=level.getBlockEntity(pos);
+            h.assertTrue(entity instanceof net.minecraft.world.level.block.entity.ChestBlockEntity,"Loot chest present at site "+type);
+            h.assertTrue(!level.getBlockState(pos.above()).isRedstoneConductor(level,pos.above()),"Chest lid is unobstructed at site "+type);
+            var chest=(net.minecraft.world.level.block.entity.ChestBlockEntity)entity;
+            String expected="jjkcursedate:chests/"+(type==0?"residence":type==1?"ruins":"city");
+            h.assertTrue(chest.saveWithFullMetadata().getString("LootTable").equals(expected),"Loot table persisted: "+expected);
+            chest.unpackLootTable(null);
+            boolean fragment=false;for(int slot=0;slot<chest.getContainerSize();slot++)if(chest.getItem(slot).is(CursedFate.FRAGMENT.get()))fragment=true;
+            h.assertTrue(fragment,"Opening the chest rolls fragments at each site");
+        }
+        var seen=new java.util.HashSet<net.minecraft.world.item.Item>();
+        var table=level.getServer().getLootData().getLootTable(CursedFate.id("chests/ruins"));
+        for(int seed=1;seed<=1500;seed++)for(var stack:table.getRandomItems(parameters,seed))seen.add(stack.getItem());
+        for(var tool:CursedFate.TOOLS.values())h.assertTrue(seen.contains(tool.get()),"Loot can produce "+tool.getId());
+        for(var relic:CursedFate.RELICS.values())h.assertTrue(seen.contains(relic.get()),"Loot can produce "+relic.getId());
+        h.succeed();
+    }
 }

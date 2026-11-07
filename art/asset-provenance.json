@@ -2,7 +2,8 @@
   "generator": "CodeRabbit",
   "generatedBy": [
     "scripts/art_upgrade.py",
-    "scripts/sound_assets.py"
+    "scripts/sound_assets.py",
+    "scripts/loot_assets.py"
   ],
   "sources": {
     "trendyguy.png": "user attachment, used for fabric luminance reference",
@@ -16,7 +17,8 @@
     "14 tool models and materials",
     "5 building materials",
     "9 synthesized mono sound effects",
-    "16 outfit armor atlases"
+    "16 outfit armor atlases",
+    "11 cursed-object 3D models and textures; three chest loot tables"
   ],
   "limitations": [
     "shared procedural animation timelines",

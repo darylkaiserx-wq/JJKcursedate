@@ -228,5 +228,17 @@
   "subtitles.jjkcursedate.slash": "Blade whooshes",
   "subtitles.jjkcursedate.fire": "Flames roar",
   "subtitles.jjkcursedate.lightning": "Lightning crackles",
-  "subtitles.jjkcursedate.blood": "Blood technique pulses"
+  "subtitles.jjkcursedate.blood": "Blood technique pulses",
+  "item.jjkcursedate.sukuna_finger": "Sukuna's Finger",
+  "item.jjkcursedate.prison_realm": "Prison Realm",
+  "item.jjkcursedate.death_painting_1": "Cursed Womb: Death Painting 1",
+  "item.jjkcursedate.death_painting_2": "Cursed Womb: Death Painting 2",
+  "item.jjkcursedate.death_painting_3": "Cursed Womb: Death Painting 3",
+  "item.jjkcursedate.death_painting_4": "Cursed Womb: Death Painting 4",
+  "item.jjkcursedate.death_painting_5": "Cursed Womb: Death Painting 5",
+  "item.jjkcursedate.death_painting_6": "Cursed Womb: Death Painting 6",
+  "item.jjkcursedate.death_painting_7": "Cursed Womb: Death Painting 7",
+  "item.jjkcursedate.death_painting_8": "Cursed Womb: Death Painting 8",
+  "item.jjkcursedate.death_painting_9": "Cursed Womb: Death Painting 9",
+  "item.jjkcursedate.relic_description": "Collectible cursed object"
 }

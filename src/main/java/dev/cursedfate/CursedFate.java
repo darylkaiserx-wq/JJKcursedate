@@ -31,6 +31,7 @@ public final class CursedFate {
     public static final Map<String,RegistryObject<EntityType<Sorcerer>>> NPCS=new LinkedHashMap<>();
     public static final Map<String,RegistryObject<EntityType<Shikigami>>> SUMMONS=new LinkedHashMap<>();
     public static final Map<String,RegistryObject<Item>> TOOLS=new LinkedHashMap<>();
+    public static final Map<String,RegistryObject<Item>> RELICS=new LinkedHashMap<>();
     public static final RegistryObject<Item> BOOK=ITEMS.register("fate_book",()->new Item(new Item.Properties().stacksTo(1)){
         @Override public InteractionResultHolder<ItemStack> use(Level level,Player player,InteractionHand hand){
             if(player instanceof net.minecraft.server.level.ServerPlayer sp)Net.sync(sp,true);
@@ -53,6 +54,8 @@ public final class CursedFate {
         }
         for(String tool:List.of("slaughter_demon","playful_cloud","inverted_spear","soul_split_katana","dragon_bone","black_rope","chain_of_a_thousand_miles","nanami_blade","festering_life_sword","executioner_sword","hiten","kamutoke","nobara_hammer","mechamaru_blade"))
             TOOLS.put(tool,ITEMS.register(tool,()->new CursedTool(tool)));
+        for(String relic:List.of("sukuna_finger","prison_realm","death_painting_1","death_painting_2","death_painting_3","death_painting_4","death_painting_5","death_painting_6","death_painting_7","death_painting_8","death_painting_9"))
+            RELICS.put(relic,ITEMS.register(relic,()->new CursedRelic()));
         for(String outfit:List.of("tokyo_uniform","kyoto_uniform","gojo_outfit","sukuna_robes","toji_outfit","yuta_uniform","nanami_suit","geto_robes"))
             for(var type:ArmorItem.Type.values())ITEMS.register(outfit+"_"+type.getName(),()->new Outfit(outfit,type));
     }
