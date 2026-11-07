@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public final class Net {
-    private static final String VERSION="3";
+    private static final String VERSION="4";
     public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(CursedFate.id("main"),()->VERSION,VERSION::equals,VERSION::equals);
     public record Request(String action,int slot){
         public void encode(FriendlyByteBuf b){b.writeUtf(action,64);b.writeInt(slot);}
@@ -32,7 +32,34 @@ public final class Net {
         public void handle(Supplier<NetworkEvent.Context> ctx){var c=ctx.get();c.enqueueWork(()->CombatVisuals.start(actor,clip));c.setPacketHandled(true);}
     }
     public static void animate(net.minecraft.world.entity.LivingEntity actor,String clip){if(!actor.level().isClientSide){CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(()->actor),new Animation(actor.getUUID(),clip));}}
+    /** Server-authored visual endpoints; this packet never applies damage or movement. */
+    public record Technique(java.util.UUID actor,String path,int slot,net.minecraft.world.phys.Vec3 origin,net.minecraft.world.phys.Vec3 end,int ticks,float radius){
+        public void encode(FriendlyByteBuf b){b.writeUUID(actor);b.writeUtf(path,32);b.writeInt(slot);b.writeDouble(origin.x);b.writeDouble(origin.y);b.writeDouble(origin.z);b.writeDouble(end.x);b.writeDouble(end.y);b.writeDouble(end.z);b.writeInt(ticks);b.writeFloat(radius);}
+        public static Technique decode(FriendlyByteBuf b){return new Technique(b.readUUID(),b.readUtf(32),b.readInt(),new net.minecraft.world.phys.Vec3(b.readDouble(),b.readDouble(),b.readDouble()),new net.minecraft.world.phys.Vec3(b.readDouble(),b.readDouble(),b.readDouble()),b.readInt(),b.readFloat());}
+        public void handle(Supplier<NetworkEvent.Context> ctx){var c=ctx.get();c.enqueueWork(()->TechniqueVisuals.accept(this));c.setPacketHandled(true);}
+    }
+    public static Technique techniquePacket(net.minecraft.world.entity.LivingEntity actor,Catalog.Move move,net.minecraft.world.entity.LivingEntity target,net.minecraft.world.phys.Vec3 origin){
+        String path=VisualCatalog.path(actor);var character=Catalog.get(path);if(character==null)return null;
+        int slot=character.moves().indexOf(move);if(slot<0)return null;
+        int range=move.kind().equals("strike")?4:22;
+        net.minecraft.world.phys.Vec3 end;
+        if(java.util.Set.of("rush","teleport","swap").contains(move.kind()))end=actor.getEyePosition();
+        else if(java.util.Set.of("water","gravity").contains(move.kind()))end=origin;
+        else end=target==null?actor.level().clip(new net.minecraft.world.level.ClipContext(origin,origin.add(actor.getLookAngle().scale(range)),net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,actor)).getLocation():target.getEyePosition();
+        return new Technique(actor.getUUID(),path,slot,origin,end,36,0);
+    }
+    public static void technique(net.minecraft.world.entity.LivingEntity actor,Catalog.Move move,net.minecraft.world.entity.LivingEntity target,net.minecraft.world.phys.Vec3 origin){
+        var packet=techniquePacket(actor,move,target,origin);
+        if(packet==null){animate(actor,"cast");Effects.at(actor,move.kind());return;}
+        CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(()->actor),packet);
+        animate(actor,"cast:"+packet.slot());
+    }
+    public static void domain(net.minecraft.server.level.ServerLevel world,Domains.Domain domain,int remaining){
+        var packet=new Technique(domain.owner(),domain.path(),-1,domain.center(),domain.center(),remaining,Settings.DOMAIN_RADIUS.get());
+        CHANNEL.send(PacketDistributor.DIMENSION.with(world::dimension),packet);
+    }
     public static void init(){
+        CHANNEL.registerMessage(4,Technique.class,Technique::encode,Technique::decode,Technique::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(3,Animation.class,Animation::encode,Animation::decode,Animation::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(2,Appearance.class,Appearance::encode,Appearance::decode,Appearance::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(0,Request.class,Request::encode,Request::decode,Request::handle,Optional.of(NetworkDirection.PLAY_TO_SERVER));

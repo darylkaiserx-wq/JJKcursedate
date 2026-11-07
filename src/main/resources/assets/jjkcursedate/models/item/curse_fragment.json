@@ -1,6 +1,284 @@
 {
-  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "jjkcursedate:item/curse_fragment"
+    "core": "jjkcursedate:item/fragment_core",
+    "particle": "jjkcursedate:item/fragment_core"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        2,
+        5
+      ],
+      "to": [
+        11,
+        13,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            11
+          ]
+        },
+        "east": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            11
+          ]
+        },
+        "west": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            11
+          ]
+        },
+        "up": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ]
+        },
+        "down": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          8.0,
+          7.5,
+          8.0
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    },
+    {
+      "from": [
+        3,
+        5,
+        6
+      ],
+      "to": [
+        7,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            6
+          ]
+        },
+        "up": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          5.0,
+          8.0,
+          8.0
+        ],
+        "axis": "z",
+        "angle": -22.5
+      }
+    },
+    {
+      "from": [
+        9,
+        7,
+        6
+      ],
+      "to": [
+        13,
+        12,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#core",
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ]
+        }
+      },
+      "rotation": {
+        "origin": [
+          11.0,
+          9.5,
+          8.0
+        ],
+        "axis": "z",
+        "angle": 22.5
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        20,
+        30,
+        -15
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -35,
+        0
+      ],
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
   }
 }

@@ -101,7 +101,8 @@ public final class Actions {
     public static void perform(LivingEntity caster,Catalog.Move m,float scale){
         if(!(caster.level() instanceof ServerLevel world))return;
         var target=aimed(caster,22);float damage=m.power()*scale;
-        pulse(caster,m.kind(),8);Net.animate(caster,"cast");
+        Vec3 visualOrigin=caster.getEyePosition();
+        var visualTarget=m.kind().equals("strike")?aimed(caster,4):target;
         if(m.name().equals("Nue"))Summons.spawn(caster,"nue");
         switch(m.kind()){
             case "shield" -> {caster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,160,1));caster.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,160,0));}
@@ -125,13 +126,14 @@ public final class Actions {
             case "push","pull","gravity","water" -> {for(var e:nearby(caster,10)){Vec3 v=e.position().subtract(caster.position()).normalize().scale(m.kind().equals("pull")?-.9:1.1);e.push(v.x,.25,v.z);e.hurtMarked=true;hit(caster,e,damage*.5f);if(m.kind().equals("gravity"))e.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,80,3));}}
             case "stun","ice","plant" -> {if(target!=null){target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,80,3));target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,60,1));hit(caster,target,damage*.6f);}}
             case "strike" -> {var e=aimed(caster,4);if(e!=null)hit(caster,e,damage*1.5f);}
-            default -> {if(target!=null){beam(caster,target,m.kind());hit(caster,target,damage);switch(m.kind()){
+            default -> {if(target!=null){hit(caster,target,damage);switch(m.kind()){
                 case "fire" -> target.setSecondsOnFire(4);
                 case "poison" -> target.addEffect(new MobEffectInstance(MobEffects.POISON,100,0));
                 case "curse" -> target.addEffect(new MobEffectInstance(MobEffects.WITHER,60,0));
                 case "lightning" -> target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,40,2));
             }}}
         }
+        Net.technique(caster,m,visualTarget,visualOrigin);
         world.playSound(null,caster.blockPosition(),m.kind().equals("heal")?SoundEvents.AMETHYST_BLOCK_CHIME:CursedFate.AUDIO.get(switch(m.kind()){case "fire"->"fire";case "lightning"->"lightning";case "blood"->"blood";case "strike","rush","cut"->"slash";default->"charge";}).get(),SoundSource.PLAYERS,.7f,1.1f);
     }
     public static void hit(LivingEntity caster,LivingEntity target,float amount){

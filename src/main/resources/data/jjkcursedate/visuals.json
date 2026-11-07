@@ -1,0 +1,1022 @@
+{
+  "gojo": {
+    "gesture": "finger",
+    "moves": [
+      "blue",
+      "red",
+      "purple"
+    ],
+    "domain": "void",
+    "tempo": 0.85,
+    "guard": 0.12,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "84dbff"
+  },
+  "yuji": {
+    "gesture": "brawler",
+    "moves": [
+      "impact",
+      "black_flash",
+      "soul_slash"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.185,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "f48da6"
+  },
+  "sukuna": {
+    "gesture": "cleave",
+    "moves": [
+      "slash",
+      "cleave",
+      "flame"
+    ],
+    "domain": "shrine",
+    "tempo": 0.96,
+    "guard": 0.25,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "e85164"
+  },
+  "megumi": {
+    "gesture": "shadow",
+    "moves": [
+      "shadow",
+      "lightning",
+      "shadow_step"
+    ],
+    "domain": "shadow",
+    "tempo": 1.015,
+    "guard": 0.315,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "59699e"
+  },
+  "nobara": {
+    "gesture": "hammer",
+    "moves": [
+      "nails",
+      "hairpin",
+      "resonance"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.38,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "e69b58"
+  },
+  "maki": {
+    "gesture": "blade",
+    "moves": [
+      "weapon",
+      "rush",
+      "soul_slash"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.12,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": -1,
+    "color": "729b65"
+  },
+  "toge": {
+    "gesture": "speech",
+    "moves": [
+      "speech",
+      "speech",
+      "speech"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.185,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "bca5d9"
+  },
+  "panda": {
+    "gesture": "brawler",
+    "moves": [
+      "impact",
+      "rush",
+      "shockwave"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.25,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "bcbcbc"
+  },
+  "nanami": {
+    "gesture": "ratio",
+    "moves": [
+      "ratio",
+      "fracture",
+      "overtime"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.315,
+    "lean": 0.104,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "dcce85"
+  },
+  "yuta": {
+    "gesture": "blade",
+    "moves": [
+      "summon",
+      "speech",
+      "love_beam"
+    ],
+    "domain": "blades",
+    "tempo": 0.96,
+    "guard": 0.38,
+    "lean": 0.126,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "d7e7ef"
+  },
+  "geto": {
+    "gesture": "orb",
+    "moves": [
+      "summon",
+      "swarm",
+      "vortex"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.12,
+    "lean": 0.148,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "9a7cbd"
+  },
+  "mahito": {
+    "gesture": "palms",
+    "moves": [
+      "transfigure",
+      "shockwave",
+      "summon"
+    ],
+    "domain": "hands",
+    "tempo": 1.07,
+    "guard": 0.185,
+    "lean": 0.17,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "8dc6ce"
+  },
+  "jogo": {
+    "gesture": "palms",
+    "moves": [
+      "embers",
+      "eruption",
+      "meteor"
+    ],
+    "domain": "volcano",
+    "tempo": 1.125,
+    "guard": 0.25,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "ff803f"
+  },
+  "hanami": {
+    "gesture": "ritual",
+    "moves": [
+      "roots",
+      "wood",
+      "flowers"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.315,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "91be77"
+  },
+  "dagon": {
+    "gesture": "tide",
+    "moves": [
+      "water",
+      "swarm",
+      "water"
+    ],
+    "domain": "ocean",
+    "tempo": 0.85,
+    "guard": 0.38,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "df7779"
+  },
+  "toji": {
+    "gesture": "blade",
+    "moves": [
+      "weapon",
+      "rush",
+      "chain"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.12,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": -1,
+    "color": "728392"
+  },
+  "choso": {
+    "gesture": "blood",
+    "moves": [
+      "blood",
+      "supernova",
+      "blood_scale"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.185,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "c15c7d"
+  },
+  "todo": {
+    "gesture": "clap",
+    "moves": [
+      "clap",
+      "impact",
+      "rush"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.25,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "bc985c"
+  },
+  "kamo": {
+    "gesture": "blood",
+    "moves": [
+      "blood_arrow",
+      "blood_bind",
+      "blood_scale"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.315,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": -1,
+    "color": "b86574"
+  },
+  "momo": {
+    "gesture": "sweep",
+    "moves": [
+      "wind",
+      "flight",
+      "wind"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.38,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "e3d899"
+  },
+  "mai": {
+    "gesture": "aim",
+    "moves": [
+      "bullet",
+      "metal",
+      "bullet"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.12,
+    "lean": 0.104,
+    "spread": 0.15,
+    "lead": -1,
+    "color": "658b80"
+  },
+  "miwa": {
+    "gesture": "draw",
+    "moves": [
+      "slash",
+      "weapon",
+      "barrier"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.185,
+    "lean": 0.126,
+    "spread": 0.24,
+    "lead": -1,
+    "color": "91b6e8"
+  },
+  "mechamaru": {
+    "gesture": "aim",
+    "moves": [
+      "cannon",
+      "volley",
+      "armor"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.25,
+    "lean": 0.148,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "bda082"
+  },
+  "utahime": {
+    "gesture": "ritual",
+    "moves": [
+      "ritual",
+      "ritual",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.315,
+    "lean": 0.17,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "db99ae"
+  },
+  "shoko": {
+    "gesture": "palms",
+    "moves": [
+      "heal",
+      "shield",
+      "shockwave"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.38,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "b38d77"
+  },
+  "gakuganji": {
+    "gesture": "sweep",
+    "moves": [
+      "sound",
+      "sound",
+      "sound"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.12,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "b1a287"
+  },
+  "kusakabe": {
+    "gesture": "draw",
+    "moves": [
+      "slash",
+      "barrier",
+      "weapon"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.185,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "9a9279"
+  },
+  "mei_mei": {
+    "gesture": "sweep",
+    "moves": [
+      "feather",
+      "summon",
+      "weapon"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.25,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "b3bfd9"
+  },
+  "ui_ui": {
+    "gesture": "ritual",
+    "moves": [
+      "teleport",
+      "barrier",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.315,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "a0c8e3"
+  },
+  "naobito": {
+    "gesture": "frame",
+    "moves": [
+      "projection",
+      "frame",
+      "projection"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.38,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "b78c72"
+  },
+  "naoya": {
+    "gesture": "frame",
+    "moves": [
+      "projection",
+      "frame",
+      "shockwave"
+    ],
+    "domain": "panels",
+    "tempo": 0.96,
+    "guard": 0.12,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "bfbd91"
+  },
+  "yuki": {
+    "gesture": "brawler",
+    "moves": [
+      "star",
+      "summon",
+      "gravity"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.185,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "e2c866"
+  },
+  "tengen": {
+    "gesture": "ritual",
+    "moves": [
+      "barrier",
+      "barrier",
+      "barrier"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.25,
+    "lean": 0.104,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "c8bd9b"
+  },
+  "kenjaku": {
+    "gesture": "orb",
+    "moves": [
+      "summon",
+      "gravity",
+      "vortex"
+    ],
+    "domain": "womb",
+    "tempo": 1.125,
+    "guard": 0.315,
+    "lean": 0.126,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "af88be"
+  },
+  "uraume": {
+    "gesture": "palms",
+    "moves": [
+      "ice",
+      "frost",
+      "icefall"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.38,
+    "lean": 0.148,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "9cdeed"
+  },
+  "haruta": {
+    "gesture": "blade",
+    "moves": [
+      "weapon",
+      "heal",
+      "impact"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.12,
+    "lean": 0.17,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "dcc969"
+  },
+  "eso": {
+    "gesture": "sweep",
+    "moves": [
+      "poison",
+      "poison",
+      "blood"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.185,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "d68bba"
+  },
+  "kechizu": {
+    "gesture": "brawler",
+    "moves": [
+      "poison",
+      "impact",
+      "poison"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.25,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "8eae87"
+  },
+  "finger_bearer": {
+    "gesture": "orb",
+    "moves": [
+      "cannon",
+      "impact",
+      "shockwave"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.315,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "d8c4a2"
+  },
+  "smallpox": {
+    "gesture": "ritual",
+    "moves": [
+      "grave",
+      "poison",
+      "grave"
+    ],
+    "domain": "graves",
+    "tempo": 1.07,
+    "guard": 0.38,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "959f70"
+  },
+  "grasshopper": {
+    "gesture": "brawler",
+    "moves": [
+      "rush",
+      "impact",
+      "wind"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.12,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "8ead63"
+  },
+  "rika": {
+    "gesture": "claw",
+    "moves": [
+      "cleave",
+      "love_beam",
+      "shield"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.185,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "d4badf"
+  },
+  "higuruma": {
+    "gesture": "gavel",
+    "moves": [
+      "gavel",
+      "frame",
+      "execution"
+    ],
+    "domain": "court",
+    "tempo": 0.85,
+    "guard": 0.25,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "a39c8b"
+  },
+  "hakari": {
+    "gesture": "brawler",
+    "moves": [
+      "jackpot",
+      "doors",
+      "rush"
+    ],
+    "domain": "jackpot",
+    "tempo": 0.905,
+    "guard": 0.315,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "b6c37a"
+  },
+  "kirara": {
+    "gesture": "star",
+    "moves": [
+      "star",
+      "star",
+      "constellation"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.38,
+    "lean": 0.104,
+    "spread": 0.15,
+    "lead": -1,
+    "color": "c8a1dd"
+  },
+  "kashimo": {
+    "gesture": "staff",
+    "moves": [
+      "lightning",
+      "weapon",
+      "lightning"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.12,
+    "lean": 0.126,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "98dfd4"
+  },
+  "hara": {
+    "gesture": "receipt",
+    "moves": [
+      "receipt",
+      "barrier",
+      "gravity"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.185,
+    "lean": 0.148,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "dbbf8c"
+  },
+  "takaba": {
+    "gesture": "clap",
+    "moves": [
+      "comedy",
+      "shockwave",
+      "comedy"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.25,
+    "lean": 0.17,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "f1db65"
+  },
+  "hanezoki": {
+    "gesture": "aim",
+    "moves": [
+      "embers",
+      "flame",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.315,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "d5a28d"
+  },
+  "ryu": {
+    "gesture": "cannon",
+    "moves": [
+      "cannon",
+      "shockwave",
+      "volley"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.38,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "b78cd0"
+  },
+  "uro": {
+    "gesture": "tide",
+    "moves": [
+      "sky",
+      "shatter",
+      "sky"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.12,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": -1,
+    "color": "a8d7e9"
+  },
+  "kurourushi": {
+    "gesture": "claw",
+    "moves": [
+      "poison",
+      "swarm",
+      "transfigure"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.185,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "a19765"
+  },
+  "dhruv": {
+    "gesture": "ritual",
+    "moves": [
+      "summon",
+      "slash",
+      "barrier"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.25,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "c8a786"
+  },
+  "angel": {
+    "gesture": "prayer",
+    "moves": [
+      "angel",
+      "ladder",
+      "flight"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.315,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "e9dba0"
+  },
+  "yorozu": {
+    "gesture": "orb",
+    "moves": [
+      "metal",
+      "armor",
+      "perfect_sphere"
+    ],
+    "domain": "sphere",
+    "tempo": 1.125,
+    "guard": 0.38,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "9bb9a8"
+  },
+  "daido": {
+    "gesture": "draw",
+    "moves": [
+      "slash",
+      "weapon",
+      "fracture"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.12,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "c4bdac"
+  },
+  "miyo": {
+    "gesture": "sumo",
+    "moves": [
+      "rush",
+      "shockwave",
+      "shield"
+    ],
+    "domain": "sumo",
+    "tempo": 0.85,
+    "guard": 0.185,
+    "lean": 0.104,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "b7a184"
+  },
+  "larue": {
+    "gesture": "heart",
+    "moves": [
+      "heart",
+      "heart",
+      "heart"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.25,
+    "lean": 0.126,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "c4a0a7"
+  },
+  "miguel": {
+    "gesture": "sweep",
+    "moves": [
+      "rope",
+      "ritual",
+      "rush"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.315,
+    "lean": 0.148,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "c99562"
+  },
+  "junpei": {
+    "gesture": "shadow",
+    "moves": [
+      "summon",
+      "poison",
+      "shield"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.38,
+    "lean": 0.17,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "9dbbc4"
+  },
+  "ijichi": {
+    "gesture": "ritual",
+    "moves": [
+      "barrier",
+      "teleport",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.12,
+    "lean": 0.06,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "a5b0bb"
+  },
+  "nitta": {
+    "gesture": "palms",
+    "moves": [
+      "heal",
+      "teleport",
+      "shield"
+    ],
+    "domain": "none",
+    "tempo": 1.125,
+    "guard": 0.185,
+    "lean": 0.082,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "e8bc9f"
+  },
+  "arata": {
+    "gesture": "palms",
+    "moves": [
+      "heal",
+      "shield",
+      "teleport"
+    ],
+    "domain": "none",
+    "tempo": 1.18,
+    "guard": 0.25,
+    "lean": 0.104,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "dbc399"
+  },
+  "riko": {
+    "gesture": "prayer",
+    "moves": [
+      "shield",
+      "teleport",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 0.85,
+    "guard": 0.315,
+    "lean": 0.126,
+    "spread": 0.42,
+    "lead": 1,
+    "color": "80c9e2"
+  },
+  "kuro": {
+    "gesture": "blade",
+    "moves": [
+      "weapon",
+      "teleport",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 0.905,
+    "guard": 0.38,
+    "lean": 0.148,
+    "spread": 0.15,
+    "lead": 1,
+    "color": "b19ca1"
+  },
+  "tsumiki": {
+    "gesture": "prayer",
+    "moves": [
+      "shield",
+      "teleport",
+      "heal"
+    ],
+    "domain": "none",
+    "tempo": 0.96,
+    "guard": 0.12,
+    "lean": 0.17,
+    "spread": 0.24,
+    "lead": 1,
+    "color": "d8b9ac"
+  },
+  "wasuke": {
+    "gesture": "sumo",
+    "moves": [
+      "shield",
+      "heal",
+      "teleport"
+    ],
+    "domain": "none",
+    "tempo": 1.015,
+    "guard": 0.185,
+    "lean": 0.06,
+    "spread": 0.33,
+    "lead": 1,
+    "color": "b3b3ac"
+  },
+  "yuko": {
+    "gesture": "heart",
+    "moves": [
+      "shield",
+      "heal",
+      "teleport"
+    ],
+    "domain": "none",
+    "tempo": 1.07,
+    "guard": 0.25,
+    "lean": 0.082,
+    "spread": 0.42,
+    "lead": -1,
+    "color": "bfa2b2"
+  }
+}

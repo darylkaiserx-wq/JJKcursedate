@@ -159,4 +159,43 @@ public final class ModTests {
         for(var relic:CursedFate.RELICS.values())h.assertTrue(seen.contains(relic.get()),"Loot can produce "+relic.getId());
         h.succeed();
     }
+    @GameTest(template="empty") public static void visualDirectionsAndPackets(GameTestHelper h){
+        var signatures=new java.util.HashSet<String>();
+        for(var c:Catalog.ALL){
+            var profile=VisualCatalog.get(c.id());
+            h.assertTrue(profile.moves().size()==c.moves().size(),"Visual slot coverage: "+c.id());
+            h.assertTrue(profile.domain().equals("none")==c.domain().isEmpty(),"Domain art coverage: "+c.id());
+            h.assertTrue(signatures.add(profile.gesture()+":"+profile.tempo()+":"+profile.guard()+":"+profile.lean()+":"+profile.spread()),"Individual motion profile: "+c.id());
+            for(int slot=-1;slot<3;slot++){
+                var packet=new Net.Technique(java.util.UUID.randomUUID(),c.id(),slot,new net.minecraft.world.phys.Vec3(1.25,70,-2.5),new net.minecraft.world.phys.Vec3(5,71,10),slot<0?240:36,slot<0?12:0);
+                var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+                try{packet.encode(buffer);h.assertTrue(packet.equals(Net.Technique.decode(buffer)),"Lossless visual endpoint/slot packet: "+c.id());}finally{buffer.release();}
+            }
+        }
+        h.assertTrue(VisualCatalog.get("gojo").moves().equals(java.util.List.of("blue","red","purple")),"Limitless has distinct directions");
+        h.succeed();
+    }
+    @GameTest(template="empty") public static void domainOwnerCleanup(GameTestHelper h){
+        Domains.clear();var npc=CursedFate.NPCS.get("sukuna").get().create(h.getLevel());
+        npc.moveTo(h.absolutePos(new BlockPos(1,2,1)),0,0);h.getLevel().addFreshEntity(npc);
+        Domains.openNpc(npc);h.assertTrue(Domains.count(h.getLevel())==1,"NPC domain opens");
+        Domains.remove(npc.getUUID());h.assertTrue(Domains.count(h.getLevel())==0,"Owner removal clears the domain and broadcasts its visual stop");
+        Domains.openNpc(npc);npc.discard();Domains.tick(h.getLevel());
+        h.assertTrue(Domains.count(h.getLevel())==0,"Missing owner expires the domain");h.succeed();
+    }
+
+    @GameTest(template="city_test") public static void movementVisualEndpoints(GameTestHelper h){
+        var p=mockServerPlayer(h);Progress.data(p).putString("path","megumi");
+        p.moveTo(h.absolutePos(new BlockPos(4,3,4)),0,0);var origin=p.getEyePosition();
+        p.setPos(p.getX(),p.getY(),p.getZ()+4.2);
+        var packet=Net.techniquePacket(p,Catalog.get("megumi").moves().get(2),null,origin);
+        h.assertTrue(packet.origin().equals(origin)&&packet.end().equals(p.getEyePosition()),"Shadow Step visuals use the actual completed movement, including collision rejection");
+        Progress.data(p).putString("path","dagon");
+        var tide=Net.techniquePacket(p,Catalog.get("dagon").moves().get(0),null,p.getEyePosition());
+        h.assertTrue(tide.end().equals(tide.origin()),"Radial water effect stays at the caster");
+        Progress.data(p).putString("path","yuji");
+        var strike=Net.techniquePacket(p,Catalog.get("yuji").moves().get(0),null,p.getEyePosition());
+        h.assertTrue(strike.origin().distanceTo(strike.end())<=4.01,"Melee visual cannot imply a22-block hit");h.succeed();
+    }
+
 }

@@ -52,3 +52,38 @@ for loc in ['city','residence','ruins']:
     assert all_tools|relics|{'curse_fragment'} <= entries,(loc,entries)
     for item in entries:assert (a/f'models/item/{item}.json').exists(),item
 print('PASS: all 14 tools and 11 relics in each of three location loot tables')
+# Visual directions are separate from gameplay move definitions, with full roster coverage.
+visuals=json.loads((d/'visuals.json').read_text())
+assert set(visuals)==ids
+for c in roster:
+    profile=visuals[c['id']]
+    assert len(profile['moves'])==3 and len(set(profile['moves']))>=1
+    assert (profile['domain']=='none')==(not c['domain']),c['id']
+    assert .8<=profile['tempo']<=1.3 and profile['lead'] in [-1,1]
+    assert 0<profile['guard']<1 and len(profile['color'])==6
+assert visuals['gojo']['moves']==['blue','red','purple']
+assert visuals['choso']['moves'][0]=='blood' and visuals['nobara']['moves'][0]=='nails'
+for name in all_tools:
+    model=json.loads((a/f'models/item/{name}.json').read_text())
+    assert 12<=len(model['elements'])<=64,(name,len(model['elements']))
+    for element in model['elements']:
+        assert all(lo<hi for lo,hi in zip(element['from'],element['to'])),name
+        assert all(0<=v<=16 for f in element['faces'].values() for v in f['uv']),name
+        if 'rotation' in element:assert element['rotation']['angle'] in [-45,-22.5,0,22.5,45]
+for name in ['plaster','roof_tiles','timber_panel','curse_stone','paving']:
+    assert struct.unpack('>II',(a/f'textures/block/{name}.png').read_bytes()[16:24])==(64,64)
+for particle in (a/'particles').glob('*.json'):
+    for texture in json.loads(particle.read_text())['textures']:
+        assert struct.unpack('>II',(a/'textures/particle'/(texture.split(':')[1]+'.png')).read_bytes()[16:24])==(128,128)
+print('PASS: 68 animation profiles, 204 move directions, 14 domain motifs, sculpted tool bounds/UVs and upgraded material/effect sizes')
+import re
+renderer=Path('src/main/java/dev/cursedfate/TechniqueVisuals.java').read_text().split('private static void domain')[0]
+rendered={q for group in re.findall(r'case (.*?)\s*->',renderer) for q in re.findall(r'"(.*?)"',group)}
+assert {f for p in visuals.values() for f in p['moves']}<=rendered,'Unimplemented move visual'
+print('PASS: all 78 named visual forms resolve to explicit renderer branches')
+for name in ['divine_dog','nue','rika_manifestation','cursed_spirit','moon_dregs','garuda','death_swarm','mahoraga']:
+    atlas=a/f'textures/models/summon/{name}.png'
+    assert struct.unpack('>II',atlas.read_bytes()[16:24])==(128,128),atlas
+for name in ['fate_book','curse_fragment']:
+    assert json.loads((a/f'models/item/{name}.json').read_text())['elements']
+print('PASS: eight summon material atlases and sculpted utility items')

@@ -12,13 +12,13 @@ import java.util.*;
 public final class Domains {
     public record Domain(UUID owner,Vec3 center,long until,int strength,String path){}
     private static final Map<net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>,List<Domain>> ACTIVE=new HashMap<>();
-    public static void clear(){ACTIVE.clear();}
-    public static void remove(UUID owner){ACTIVE.values().forEach(list->list.removeIf(d->d.owner().equals(owner)));}
+    public static void clear(){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());if(world!=null)for(var d:entry.getValue())Net.domain(world,d,0);}ACTIVE.clear();}
+    public static void remove(UUID owner){for(var entry:ACTIVE.entrySet()){var server=net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();var world=server==null?null:server.getLevel(entry.getKey());entry.getValue().removeIf(d->{if(!d.owner().equals(owner))return false;if(world!=null)Net.domain(world,d,0);return true;});}}
     public static int count(ServerLevel world){return ACTIVE.getOrDefault(world.dimension(),List.of()).size();}
     public static void openNpc(Sorcerer npc){
         if(npc.character().domain().isEmpty())return;
         var list=ACTIVE.computeIfAbsent(npc.level().dimension(),k->new ArrayList<>());
-        if(list.size()<8&&list.stream().noneMatch(d->d.center().distanceTo(npc.position())<Settings.DOMAIN_RADIUS.get()*2))list.add(new Domain(npc.getUUID(),npc.position(),npc.level().getGameTime()+160,25,npc.character().id()));
+        if(list.size()<8&&list.stream().noneMatch(d->d.center().distanceTo(npc.position())<Settings.DOMAIN_RADIUS.get()*2)){var domain=new Domain(npc.getUUID(),npc.position(),npc.level().getGameTime()+160,25,npc.character().id());list.add(domain);Net.domain((ServerLevel)npc.level(),domain,160);Net.animate(npc,"domain");}
     }
     public static void open(ServerPlayer p){
         var c=Progress.character(p);var d=Progress.data(p);long now=p.level().getGameTime();
@@ -30,18 +30,19 @@ public final class Domains {
         d.putLong("domainAfter",now+1200);int strength=Progress.level(p)+d.getInt("rank")*5;
         boolean lose=false;for(var other:new ArrayList<>(list))if(other.center().distanceTo(p.position())<Settings.DOMAIN_RADIUS.get()*2){
             if(other.strength()>=strength)lose=true;
-            if(other.strength()<=strength)list.remove(other);
+            if(other.strength()<=strength){list.remove(other);Net.domain(p.serverLevel(),other,0);}
         }
         if(lose){Actions.message(p,"Domain clash! Your barrier collapsed.");return;}
-        list.add(new Domain(p.getUUID(),p.position(),now+240,strength,c.id()));
-        Net.animate(p,"cast");Effects.at(p,"barrier");
+        var domain=new Domain(p.getUUID(),p.position(),now+240,strength,c.id());list.add(domain);Net.domain(p.serverLevel(),domain,240);
+        Net.animate(p,"domain");Effects.at(p,"barrier");
         p.serverLevel().playSound(null,p.blockPosition(),CursedFate.DOMAIN_SOUND.get(),net.minecraft.sounds.SoundSource.PLAYERS,1,1);
         p.serverLevel().players().stream().filter(x->x.distanceToSqr(p)<1600).forEach(x->x.displayClientMessage(Component.literal("Domain Expansion: "+c.domain()),false));
     }
     public static void tick(ServerLevel world){
         var list=ACTIVE.get(world.dimension());if(list==null)return;
         long now=world.getGameTime();
-        list.removeIf(d->now>=d.until()||!(world.getEntity(d.owner()) instanceof LivingEntity e)||!e.isAlive()||e.position().distanceTo(d.center())>Settings.DOMAIN_RADIUS.get()*2);
+        list.removeIf(d->{boolean expired=now>=d.until()||!(world.getEntity(d.owner()) instanceof LivingEntity e)||!e.isAlive()||e.position().distanceTo(d.center())>Settings.DOMAIN_RADIUS.get()*2;if(expired)Net.domain(world,d,0);return expired;});
+        if(now%40==0)for(var d:list)Net.domain(world,d,(int)(d.until()-now));
         if(now%10!=0)return;
         for(var d:list){
             var owner=(LivingEntity)world.getEntity(d.owner());if(owner==null)continue;

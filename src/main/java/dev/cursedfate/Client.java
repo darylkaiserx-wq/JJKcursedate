@@ -72,13 +72,14 @@ public final class Client {
                 default -> cubes.texOffs(0,0).addBox(-4,-8,-4,8,1,8,new net.minecraft.client.model.geom.builders.CubeDeformation(.15f));
             }
             head.addOrReplaceChild("silhouette",cubes,net.minecraft.client.model.geom.PartPose.ZERO);
+            CharacterGeometry.tailor(mesh,c.id());
             return net.minecraft.client.model.geom.builders.LayerDefinition.create(mesh,64,64);
         });
     }
     @SubscribeEvent public static void renderers(EntityRenderersEvent.RegisterRenderers event){
         for(var entry:CursedFate.SUMMONS.entrySet()){
             String form=entry.getKey();event.registerEntityRenderer(entry.getValue().get(),ctx->new MobRenderer<Shikigami,ShikigamiModel>(ctx,new ShikigamiModel(ctx.bakeLayer(ShikigamiModel.layer(form))),.5f){
-                @Override public ResourceLocation getTextureLocation(Shikigami e){return CursedFate.id("textures/entity/summon_"+form+".png");}
+                @Override public ResourceLocation getTextureLocation(Shikigami e){return CursedFate.id("textures/models/summon/"+form+".png");}
             });
         }
         for(var entry:CursedFate.NPCS.entrySet()){
@@ -125,7 +126,7 @@ public final class Client {
             sleeve.render(event.getPoseStack(),buffer,event.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);
         }
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
-            if(e.phase!=TickEvent.Phase.END)return;CombatVisuals.tick();if(Minecraft.getInstance().player==null)return;
+            if(e.phase!=TickEvent.Phase.END)return;CombatVisuals.tick();TechniqueVisuals.tick();if(Minecraft.getInstance().player==null)return;
             if(offerSelection&&Minecraft.getInstance().screen==null){offerSelection=false;if(state.getString("path").isEmpty())Minecraft.getInstance().setScreen(new FateScreen(true));}
             for(var entry:KEYS.entrySet())while(entry.getValue().consumeClick()){
                 if(Minecraft.getInstance().screen==null)Net.send(entry.getKey(),0);
@@ -152,12 +153,13 @@ public final class Client {
         @SubscribeEvent public static void hand(RenderHandEvent e){
             var p=Minecraft.getInstance().player;if(p==null)return;var clip=CombatVisuals.current(p);if(clip==null)return;
             float t=CombatVisuals.phase(p,e.getPartialTick()),f=CombatVisuals.envelope(t);
-            if((clip.name().equals("barrage")||clip.name().equals("cast"))&&p.getMainHandItem().isEmpty()&&p.getOffhandItem().isEmpty()&&renderer(p)!=null){
+            if((clip.name().equals("barrage")||clip.casting())&&p.getMainHandItem().isEmpty()&&p.getOffhandItem().isEmpty()&&renderer(p)!=null){
                 e.setCanceled(true);if(e.getHand()!=net.minecraft.world.InteractionHand.MAIN_HAND)return;
                 float wave=(float)Math.sin(t*Math.PI*12);
                 drawCombatArm(e,net.minecraft.world.entity.HumanoidArm.RIGHT,clip.name().equals("barrage")?(wave+1)*.5f:f);
                 drawCombatArm(e,net.minecraft.world.entity.HumanoidArm.LEFT,clip.name().equals("barrage")?(1-wave)*.5f:f*.85f);return;
             }
+            CombatVisuals.hand(e.getPoseStack(),p,clip,e.getHand()==net.minecraft.world.InteractionHand.MAIN_HAND?1:-1,f);
             float alternating=clip.name().equals("barrage")?(float)Math.sin(t*Math.PI*12):0;
             e.getPoseStack().translate(alternating*.13,f*.05,-f*(clip.name().equals("heavy")?.4:.22));
             e.getPoseStack().mulPose(Axis.XP.rotationDegrees(-f*22));e.getPoseStack().mulPose(Axis.YP.rotationDegrees(alternating*12));
@@ -167,12 +169,12 @@ public final class Client {
             var arm=sign==1?model.rightArm:model.leftArm;var sleeve=sign==1?model.rightSleeve:model.leftSleeve;
             model.setupAnim(p,0,0,p.tickCount+e.getPartialTick(),0,0);arm.xRot=0;arm.yRot=0;arm.zRot=0;sleeve.copyFrom(arm);
             var buffer=e.getMultiBufferSource().getBuffer(net.minecraft.client.renderer.RenderType.entityCutoutNoCull(CursedFate.id("textures/entity/"+style(p)+".png")));
-            pose.pushPose();
+            pose.pushPose();CombatVisuals.hand(pose,p,CombatVisuals.current(p),sign,thrust);
             pose.translate(sign*(.57-thrust*.14),-.62+thrust*.15,-.72-thrust*.32);pose.mulPose(Axis.YP.rotationDegrees(sign*45));
             pose.translate(-sign,3.6,3.5);pose.mulPose(Axis.ZP.rotationDegrees(sign*120));pose.mulPose(Axis.XP.rotationDegrees(200));pose.mulPose(Axis.YP.rotationDegrees(sign*-135));pose.translate(sign*5.6,0,0);
             arm.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);sleeve.render(pose,buffer,e.getPackedLight(),net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);pose.popPose();
         }
-        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();CombatVisuals.clear();receivedState=false;offerSelection=false;pendingChoice="";}
+        @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut e){state=new CompoundTag();styles.clear();CombatVisuals.clear();TechniqueVisuals.clear();receivedState=false;offerSelection=false;pendingChoice="";}
     }
     public static final class FateScreen extends Screen {
         private EditBox search;

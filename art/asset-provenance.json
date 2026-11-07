@@ -3,7 +3,9 @@
   "generatedBy": [
     "scripts/art_upgrade.py",
     "scripts/sound_assets.py",
-    "scripts/loot_assets.py"
+    "scripts/loot_assets.py",
+    "scripts/visual_profiles.py",
+    "scripts/visual_assets.py"
   ],
   "sources": {
     "trendyguy.png": "user attachment, used for fabric luminance reference",
@@ -18,11 +20,15 @@
     "5 building materials",
     "9 synthesized mono sound effects",
     "16 outfit armor atlases",
-    "11 cursed-object 3D models and textures; three chest loot tables"
+    "11 cursed-object 3D models and textures; three chest loot tables",
+    "0.5.0: non-skin materials, tools, relics, outfits, utility icons and effect frames",
+    "68 character motion profiles, 204 move directions, 78 rendered visual forms, 14 domain motifs",
+    "Eight summon material atlases retaining original face UVs"
   ],
   "limitations": [
-    "shared procedural animation timelines",
+    "procedural character profiles share gesture families; no cinematic motion capture",
     "no licensed voices or music",
     "no claim of full canonical character likeness"
-  ]
+  ],
+  "preserved": "All 76 original entity PNGs retained; 68 humanoid skins unchanged in rendering. Summon material atlases add surface detail with original face regions."
 }
